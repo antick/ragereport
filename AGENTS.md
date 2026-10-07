@@ -40,8 +40,9 @@ RageReport is a pnpm/Turborepo workspace: `packages/ragereport` contains the loc
 1. Run root `pnpm check` after code changes; it rebuilds and runs the available tests as well as type, lint, and formatting checks. Add meaningful regression tests for changed behavior.
 2. For terminal reports, inspect colored and plain output at a narrow width. For HTML layout changes, regenerate the synthetic demo and inspect the rendered report. Test watch refresh and shutdown when changing watch behavior.
 3. For package/CLI changes, check root `pnpm pack:cli` and the built command. Keep private histories and generated exports excluded by `.gitignore` and the package file allowlist.
-4. Commit each verified logical change during implementation unless the user asks to leave changes uncommitted. Use a Conventional Commit message (`fix:`, `feat:`, `refactor:`, `docs:`, or another appropriate type), stage only the files belonging to that change, and preserve unrelated work. Never push, publish, or deploy unless explicitly requested. Use the landing app’s Vercel configuration and deployment guide when deployment is requested.
-5. Summarize what changed, the commits made, and what verification passed. Always suggest a Conventional Commit message after file changes, including when reporting changes already committed.
+4. Commit each verified logical change during implementation unless the user asks to leave changes uncommitted. Use a Conventional Commit message (`fix:`, `feat:`, `refactor:`, `docs:`, or another appropriate type), stage only the files belonging to that change, and preserve unrelated work.
+5. Keep commits local. Never push unless the user explicitly asks for a push in the current request. A request to commit does not authorize a push, and earlier push or deployment permission does not carry over to later requests. Publish or deploy only when explicitly requested. Use the landing app’s Vercel configuration and deployment guide when deployment is requested.
+6. Summarize what changed, the commits made, and what verification passed. Always suggest a Conventional Commit message after file changes, including when reporting changes already committed.
 
 <!-- BEGIN:turborepo-agent-rules -->
 
