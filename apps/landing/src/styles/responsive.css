@@ -169,14 +169,18 @@
     font-size: 16px;
   }
   footer.section-shell {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
-  footer > div {
-    grid-column: 1 / -1;
+  .footer-links {
     justify-content: flex-start;
   }
-  .footer-note {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 14px;
     padding-top: 5px;
+  }
+  .footer-credit {
+    text-align: left;
   }
 }
 @media (max-width: 480px) {

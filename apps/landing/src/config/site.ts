@@ -8,7 +8,8 @@ export const SITE = {
   repository: "https://github.com/antick/ragereport",
   docs: "https://github.com/antick/ragereport/blob/main/packages/ragereport/README.md",
   npm: "https://www.npmjs.com/package/ragereport",
-  author: "https://potion.sh",
+  author: "https://sanam.id",
+  potion: "https://potion.sh",
 };
 
 export const AGENTS = [

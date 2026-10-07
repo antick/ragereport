@@ -195,16 +195,17 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
     <a class="wordmark" href="/">
       ragereport<span class="brand-dot">.</span>
     </a>
-    <p>
-      A small tool for big feelings.
-      <br />
-      <a href={SITE.author}>Made by Pankaj at potion.sh</a>
-    </p>
-    <div>
+    <nav class="footer-links" aria-label="Footer navigation">
       <a href={SITE.repository}>Source</a>
       <a href={SITE.docs}>Documentation</a>
       <a href={`${SITE.repository}/blob/main/LICENSE`}>MIT license</a>
+    </nav>
+    <div class="footer-bottom">
+      <span class="footer-note">BUILT TO STAY LOCAL.</span>
+      <p class="footer-credit">
+        A small tool for big feelings. Made by <a href={SITE.author}>Pankaj</a> at{" "}
+        <a href={SITE.potion}>potion.sh</a>
+      </p>
     </div>
-    <span class="footer-note">BUILT TO STAY LOCAL.</span>
   </footer>
 </Page>
