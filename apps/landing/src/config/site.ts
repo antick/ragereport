@@ -1,4 +1,4 @@
-export const ENVIRONMENT = { node: "24.16+", pnpm: "12.9.1" };
+export const ENVIRONMENT = { node: "24.14+" };
 
 export const SITE = {
   name: "RageReport",
@@ -7,7 +7,7 @@ export const SITE = {
     "Your coding-agent history has receipts. Get local reports on swears, polite expressions, token costs, and AI writing patterns. No transcript uploads.",
   repository: "https://github.com/antick/ragereport",
   docs: "https://github.com/antick/ragereport/blob/main/packages/ragereport/README.md",
-  sample: "/demo.html",
+  npm: "https://www.npmjs.com/package/ragereport",
   author: "https://potion.sh",
 };
 
@@ -23,40 +23,34 @@ export const AGENTS = [
   "Zed",
 ];
 
-export const INSTALL_COMMAND = [
-  "git clone https://github.com/antick/ragereport.git",
-  "cd ragereport",
-  "pnpm install --frozen-lockfile",
-  "pnpm build:cli",
-  "pnpm cli scan",
-].join("\n");
+export const INSTALL_COMMAND = "npx ragereport";
 
 export const COMMANDS = [
   {
     id: "language",
     label: "Your language",
-    command: "pnpm cli scan --week",
+    command: "npx ragereport scan --week",
     description:
       "Swears, please-and-thank-yous, spelling variants, and your rage ratio. English and phonetic Hindi included.",
   },
   {
     id: "cost",
     label: "Token costs",
-    command: "pnpm cli cost --month --offline",
+    command: "npx ragereport cost --month --offline",
     description:
       "See where your tokens went, by agent and model. API cost estimates and recorded charges stay separate.",
   },
   {
     id: "slop",
     label: "AI clichés",
-    command: "pnpm cli slop --week",
+    command: "npx ragereport slop --week",
     description:
       "Count your assistant’s stock phrases, excessive agreement, em dashes, and checkmark walls. Code is excluded.",
   },
   {
     id: "report",
     label: "Full report",
-    command: "pnpm cli report --offline",
+    command: "npx ragereport report --offline",
     description:
       "One self-contained HTML file. Filters, daily charts, project comparisons, and an exportable summary card.",
   },
@@ -70,7 +64,8 @@ export const FEATURES = [
     description:
       "From “please fix this” to the third stretched-out fuuuuck. Count swears and polite expressions, find your favorite words, and compare your projects.",
     detail: "English + phonetic Hindi",
-    illustration: "words",
+    commandId: "language",
+    outputs: ["Swears and mild insults", "Polite expressions", "Daily and project comparisons"],
   },
   {
     number: "02",
@@ -79,7 +74,12 @@ export const FEATURES = [
     description:
       "Follow input, output, reasoning, and cache tokens across agents and models. Missing usage stays missing. An estimate stays an estimate.",
     detail: "Token usage + cost breakdowns",
-    illustration: "cost",
+    commandId: "cost",
+    outputs: [
+      "Input, output, and cache tokens",
+      "Model and agent breakdowns",
+      "Estimated costs and recorded charges",
+    ],
   },
   {
     number: "03",
@@ -88,7 +88,12 @@ export const FEATURES = [
     description:
       "Your AI has habits too. Spot stock phrases, reflexive agreement, and formatting tics. A writing-style heuristic, with a sense of humor.",
     detail: "Patterns, not a quality score",
-    illustration: "slop",
+    commandId: "slop",
+    outputs: [
+      "Common stock phrases",
+      "Agreement and formatting patterns",
+      "Code excluded from matching",
+    ],
   },
 ];
 
@@ -119,8 +124,8 @@ export const FAQS = [
       "HTML reports and SVG summary cards contain aggregate counts and word variants, without transcripts, message excerpts, or full local paths. Review them before sharing. CLI JSON and doctor diagnostics may include local paths.",
   },
   {
-    question: "Can I install it from npm yet?",
+    question: "How do I run it?",
     answer:
-      "Not yet. Version 0.1.0 is prepared for publication. For now, use the source instructions below. The CLI needs Node.js 24.14 or newer; building this workspace needs Node.js 24.16 or newer and pnpm 12.9.1.",
+      "Run npx ragereport with Node.js 24.14 or newer. No global install or pnpm is needed to use the published CLI. Start with npx ragereport --help for all commands and options.",
   },
 ];

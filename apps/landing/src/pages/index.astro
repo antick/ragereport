@@ -1,6 +1,6 @@
 ---
 import Page from "@/layouts/Page.astro";
-import ReportPreview from "@/components/ReportPreview.astro";
+import CliPreview from "@/components/CliPreview.astro";
 import FeatureList from "@/components/FeatureList.astro";
 import CommandTabs from "@/components/CommandTabs";
 import { CopyButton } from "@/components/CopyButton";
@@ -47,10 +47,10 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
             Run it locally <span aria-hidden="true">↗</span>
           </a>
           <a
-            href={SITE.sample}
-            class:list={[buttonVariants({ variant: "outline", size: "lg" }), "sample-cta"]}
+            href={SITE.docs}
+            class:list={[buttonVariants({ variant: "outline", size: "lg" }), "docs-cta"]}
           >
-            Open sample report <span aria-hidden="true">↗</span>
+            See the commands <span aria-hidden="true">↗</span>
           </a>
         </div>
         <p class="hero-note">
@@ -58,8 +58,8 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
         </p>
       </div>
       <div class="hero-report">
-        <span class="report-annotation">exhibit a. your patience, quantified.</span>
-        <ReportPreview />
+        <span class="report-annotation">straight from the CLI.</span>
+        <CliPreview />
       </div>
     </section>
     <section class="agents-section section-shell" aria-label="Supported coding agents">
@@ -101,9 +101,10 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
         <CommandTabs client:load />
         <noscript>
           <p class="noscript-note">
-            Run <code>pnpm cli scan --week</code>, <code>pnpm cli cost --month --offline</code>,{" "}
-            <code>pnpm cli slop --week</code>, or <code>pnpm cli report --offline</code> from your
-            checkout.
+            Run <code>npx ragereport scan --week</code>,{" "}
+            <code>npx ragereport cost --month --offline</code>,{" "}
+            <code>npx ragereport slop --week</code>, or <code>npx ragereport report --offline</code>{" "}
+            on your computer.
           </p>
         </noscript>
         <div class="terminal-footer">
@@ -168,7 +169,7 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
           <em>Run the numbers.</em>
         </h2>
         <p>
-          Clone it, build it, scan it. Your history stays local.
+          One command. Your own numbers. Your history stays local.
           <br />
           Your sense of humor is optional.
         </p>
@@ -178,14 +179,14 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
       </div>
       <div class="install-box">
         <div class="install-heading">
-          <span>RUN FROM SOURCE</span>
-          <CopyButton text={INSTALL_COMMAND} label="Copy setup commands" client:load />
+          <span>RUN WITH NPX</span>
+          <CopyButton text={INSTALL_COMMAND} label="Copy npx command" client:load />
         </div>
         <pre><code>{INSTALL_COMMAND}</code></pre>
         <p>
-          Node.js {ENVIRONMENT.node} · pnpm {ENVIRONMENT.pnpm}
+          Node.js {ENVIRONMENT.node} · No global install
           <br />
-          <span>Npm release coming soon. Source available now.</span>
+          <a href={SITE.npm}>Available on npm ↗</a>
         </p>
       </div>
     </section>

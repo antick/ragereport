@@ -1,0 +1,23 @@
+---
+import { SITE } from "@/config/site";
+import { getCliHelp } from "@/utils/cli-help";
+
+const preview = getCliHelp().split("\n\n").slice(0, 3).join("\n\n");
+---
+
+<div class="report-preview" aria-label="Actual RageReport CLI help">
+  <div class="receipt-top">
+    <span>R/R</span>
+    <span>
+      YOUR TERMINAL
+      <br />
+      YOUR HISTORY
+    </span>
+    <span>--help</span>
+  </div>
+  <pre class="cli-help"><code>{preview}</code></pre>
+  <div class="receipt-footer">
+    <span>GENERATED FROM THE BUILT CLI</span>
+    <a href={SITE.docs}>All commands and options ↗</a>
+  </div>
+</div>

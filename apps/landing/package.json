@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/prepare-demo.mjs && astro dev --host 127.0.0.1",
-    "build": "node scripts/prepare-demo.mjs && astro build",
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
     "typecheck": "astro check",
     "lint": "oxlint --react-plugin --jsx-a11y-plugin --deny-warnings src scripts test astro.config.mjs eslint.config.mjs && eslint \"src/**/*.astro\"",

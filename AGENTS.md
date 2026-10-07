@@ -27,6 +27,7 @@ RageReport is a pnpm/Turborepo workspace: `packages/ragereport` contains the loc
 - Keep this `AGENTS.md` current when the user adds project instructions or a change introduces a lasting convention. Preserve these basic rules when reorganizing it.
 
 - Use pnpm with the committed workspace lockfile. Keep the root private and preserve the CLI’s zero runtime dependencies. Share code only when there is an actual second use.
+- Landing content must describe real behavior. Do not publish dummy metrics, synthetic report previews, or private local history. Generate CLI help from the built command and use the published `npx ragereport` commands in public install instructions. Synthetic fixtures remain appropriate for tests.
 - Keep the landing page static; hydrate only interactive controls. Use Tailwind and the existing shadcn components consistently. Keep its content and links in `apps/landing/src/config`.
 
 ## Communication

@@ -22,7 +22,7 @@ pnpm cli report --offline
 
 ```sh
 pnpm check          # Formatting, types, lint, builds, and tests
-pnpm dev            # Astro landing page and its synthetic demo
+pnpm dev            # Astro landing page
 pnpm build:landing  # Build the website and its CLI dependency
 pnpm preview        # Serve the production website build locally
 pnpm dev:cli        # Rebuild the CLI when its source changes
@@ -30,7 +30,7 @@ pnpm demo           # Synthetic report in packages/ragereport/.demo
 pnpm pack:cli       # Inspect the publishable package without publishing
 ```
 
-Read the [CLI documentation](packages/ragereport/README.md) for commands, readers, privacy, pricing, configuration, and publishing. **The npm package is prepared for publication but has not been published yet.**
+Run the published CLI with `npx ragereport`. Read the [CLI documentation](packages/ragereport/README.md) for commands, readers, privacy, pricing, configuration, and publishing.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) before changing the workspace.
 

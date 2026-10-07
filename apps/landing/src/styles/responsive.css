@@ -17,13 +17,6 @@
     padding-inline: 14px;
     font-size: 11px;
   }
-  .receipt-title h2 {
-    font-size: 45px;
-  }
-  .verdict-stamp {
-    right: -8px;
-    font-size: 7px;
-  }
   .agent-list {
     gap: 15px 20px;
   }
@@ -83,13 +76,6 @@
   .hero-report {
     width: min(430px, 100%);
     margin-inline: auto;
-  }
-  .receipt-title h2 {
-    font-size: 55px;
-  }
-  .verdict-stamp {
-    right: 3px;
-    font-size: 8px;
   }
   .agents-section {
     grid-template-columns: 1fr;
@@ -242,23 +228,6 @@
   }
   .report-preview {
     padding: 20px 22px;
-  }
-  .receipt-title h2 {
-    font-size: 49px;
-  }
-  .verdict-stamp {
-    right: -3px;
-    padding: 8px 6px;
-    font-size: 7px;
-  }
-  .receipt-stats span {
-    font-size: 8px;
-  }
-  .ratio-line {
-    font-size: 8px;
-  }
-  .ratio-line strong span {
-    font-size: 7px;
   }
   .receipt-footer {
     flex-wrap: wrap;

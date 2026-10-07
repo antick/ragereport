@@ -91,67 +91,20 @@
   background: #ede9de;
   border: 1px solid #dfdacd;
 }
-.words {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.words > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 8px 11px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 13px;
-}
-.words small {
-  color: var(--faded);
-  font-size: 9px;
-}
-.words .word-swear {
-  color: var(--red);
-  border-color: #d5a190;
-}
-.cost > div {
-  display: grid;
-  grid-template-columns: 76px 1fr 28px;
-  gap: 12px;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 8px;
-}
-.cost > div + div {
-  margin-top: 16px;
-}
-.cost i {
-  height: 8px;
-  background: var(--ink);
-}
-.cost > div:nth-child(2) i {
-  width: 19%;
-  background: var(--red);
-}
-.cost > div:nth-child(3) i {
-  width: 22%;
-  background: #979685;
-}
-.cost strong {
-  font-size: 9px;
-  text-align: right;
-  font-weight: 400;
-}
-.slop > span {
+.feature-illustration code {
   display: block;
   font-family: var(--mono);
   font-size: 11px;
-  line-height: 2.4;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
 }
-.slop mark {
-  background: #e8c775;
-  color: var(--ink);
-  padding: 1px 3px;
+.feature-illustration ul {
+  margin-top: 18px;
+  padding-left: 16px;
+  font-size: 11px;
+  color: var(--faded);
+  line-height: 2;
+  list-style: disc;
 }
 .commands-section {
   padding-block: 66px 88px;

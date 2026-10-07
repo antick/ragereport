@@ -1,6 +1,5 @@
 ---
-import { FEATURES } from "@/config/site";
-import { SAMPLE } from "@/config/sample";
+import { COMMANDS, FEATURES } from "@/config/site";
 ---
 
 <section class="features section-shell" id="what-it-finds" aria-labelledby="features-heading">
@@ -27,30 +26,13 @@ import { SAMPLE } from "@/config/sample";
           <p>{feature.description}</p>
           <span class="feature-detail">{feature.detail}</span>
         </div>
-        <div class:list={["feature-illustration", feature.illustration]} aria-hidden="true">
-          {feature.illustration === "words" &&
-            SAMPLE.words.map(({ text, count, swear }) => (
-              <span class:list={[{ "word-swear": swear }]}>
-                {text}
-                <small>{count}</small>
-              </span>
+        <div class="feature-illustration">
+          <code>$ {COMMANDS.find(({ id }) => id === feature.commandId)?.command}</code>
+          <ul>
+            {feature.outputs.map((output) => (
+              <li>{output}</li>
             ))}
-          {feature.illustration === "cost" &&
-            SAMPLE.tokens.map(({ label, value }) => (
-              <div>
-                <span>{label}</span>
-                <i></i>
-                <strong>{value}</strong>
-              </div>
-            ))}
-          {feature.illustration === "slop" &&
-            SAMPLE.phrases.map(({ before, highlighted, after }) => (
-              <span>
-                “{before}
-                {highlighted && <mark>{highlighted}</mark>}
-                {after}”
-              </span>
-            ))}
+          </ul>
         </div>
       </article>
     ))}
