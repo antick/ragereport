@@ -134,7 +134,7 @@ Use `--agent claude`, `codex`, `cursor`, `opencode`, `amp`, `cline`, `pi`, `t3co
 
 Date input is `YYYY-MM-DD` or an ISO timestamp. The start is inclusive and the end is exclusive. Displayed dates consistently use **05 Oct 2026** formatting in UTC. `--day` and `--days` accept an optional positive number; `--week` means seven days and `--month` means thirty days. Choose one start/range filter. Histories without timestamps are included in all-history scans but excluded when a date filter is applied, with an excluded-record count.
 
-HTML period filters use the stored day buckets and can only narrow the history included when the report was generated. The model filter changes costs only. Watch mode supports terminal and HTML output; stop it with Ctrl+C. Relative CLI ranges advance on each refresh.
+HTML period filters select exactly seven or thirty UTC calendar dates, ending on the last included date (the preceding day for an exclusive midnight end). They use the stored day buckets and can only narrow the history included when the report was generated. The model filter changes costs only. Watch mode supports terminal and HTML output; stop it with Ctrl+C. Relative CLI ranges advance on each refresh.
 
 ## Terminal calendar, projects, and sharing
 

@@ -8,7 +8,7 @@ import type {
 } from "../types.js";
 import { emptyLanguage, emptySlop, finalizeLanguage } from "../analysis/summaries.js";
 import { emptyCost, addCost } from "../pricing/summary.js";
-import { daysBefore } from "../utils/format.js";
+import { calendarRange } from "../utils/format.js";
 import { mergeWords } from "../analysis/words.js";
 export interface Filters {
   agent: string;
@@ -22,6 +22,7 @@ export interface View {
   days: DailySummary[];
   agents: AgentSummary[];
   filtered: boolean;
+  calendar: { since?: string; exclusiveEnd: boolean };
 }
 export function sumLanguage(values: LanguageSummary[], noRoast = false): LanguageSummary {
   const total = emptyLanguage();
@@ -49,11 +50,17 @@ function sumSlop(values: SlopSummary[]): SlopSummary {
 }
 export function filterReport(report: Report, filters: Filters): View {
   const agents = report.agents.filter((a) => filters.agent === "all" || a.agent === filters.agent);
-  const since =
+  const range =
     filters.range === "all"
       ? undefined
-      : daysBefore(report.scope.until ?? report.generatedAt, Number(filters.range));
-  const allowedDay = (day: string) => !since || day >= since.slice(0, 10);
+      : calendarRange(
+          report.scope.until ?? report.generatedAt,
+          Number(filters.range),
+          !!report.scope.until,
+        );
+  const since = range?.since;
+  const allowedDay = (day: string) =>
+    !range || (day >= range.since.slice(0, 10) && day < range.until.slice(0, 10));
   const days = (filters.agent === "all" ? report.days : agents.flatMap((a) => a.days)).filter((d) =>
     allowedDay(d.day),
   );
@@ -85,6 +92,7 @@ export function filterReport(report: Report, filters: Filters): View {
     slop,
     cost,
     days,
+    calendar: { since: since ?? report.scope.since, exclusiveEnd: !!report.scope.until },
     filtered: filters.agent !== "all" || filters.range !== "all",
     agents: agents.map((a) => {
       const agentDays = a.days.filter((d) => allowedDay(d.day));
@@ -100,6 +108,7 @@ export function filterReport(report: Report, filters: Filters): View {
           : a.language,
         slop: since ? sumSlop(agentDays.map((d) => d.slop)) : a.slop,
         cost: agentCost,
+        days: agentDays,
       };
     }),
   };

@@ -67,6 +67,7 @@ export const TIER_DEFINITIONS = [
   },
 ] as const;
 export const UI = {
+  overviewWords: 6,
   chartDays: 31,
   heatmapDays: 91,
   heatmapLevels: 4,

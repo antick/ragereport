@@ -1,3 +1,4 @@
+import { LIMITS } from "../config/constants.js";
 import type { Report } from "../types.js";
 import type { View } from "./data.js";
 import { count, formatDate, money } from "../utils/format.js";
@@ -28,10 +29,10 @@ export function overview(report: Report, view: View): string {
         ? "No signals"
         : "No polite words";
   const tier = `<section class="panel tier-panel"><div class="tier-orbit"></div><div class="kicker">YOUR KEYBOARD TEMPERATURE</div><h2 class="tier-title">${esc(t.name)}</h2><p>${esc(t.label || "Roast labels are disabled for this report.")}</p><div class="tier-bottom"><div>SWEARS / POLITE<strong>${esc(ratio)}</strong></div><div>LANGUAGE SIGNALS<strong>${count(view.language.swears + view.language.polite)}</strong></div></div></section>`;
-  return `${stats(view)}<div class="grid">${tier}${panel("Your vocabulary, ranked", bars(view.language.swearWords), "WORD FAMILIES")}</div><div class="grid">${panel("The week in perspective", comparison(report, view))}${panel("Daily spice levels", dailyChart(view.days), "SWEARS PER DAY")}</div><div class="stats">${stat("PRICED API ESTIMATE", money(view.cost.estimatedCost), `${view.cost.unpricedRequests} records with unknown prices`)}${stat("RECORDED CHARGES", money(view.cost.billedCost), "Subscriptions and discounts can differ")}${stat("ASSISTANT PATTERNS", count(view.slop.hits), `${view.slop.affectedMessages} messages with matches`)}${stat("ACTIVE AGENTS", count(view.agents.length), "Local histories with matching records")}</div>${panel("The keyboard calendar", heatmap(view.days, report.scope.until ?? report.generatedAt))}`;
+  return `${stats(view)}<div class="grid">${tier}${panel("Your vocabulary, ranked", bars(view.language.swearWords), "WORD FAMILIES")}</div><div class="grid">${panel("The week in perspective", comparison(report, view))}${panel("Daily spice levels", dailyChart(view.days), "SWEARS PER DAY")}</div><div class="stats">${stat("PRICED API ESTIMATE", money(view.cost.estimatedCost), `${view.cost.unpricedRequests} records missing usage or prices`)}${stat("RECORDED CHARGES", money(view.cost.billedCost), "Subscriptions and discounts can differ")}${stat("ASSISTANT PATTERNS", count(view.slop.hits), `${view.slop.affectedMessages} messages with matches`)}${stat("ACTIVE AGENTS", count(view.agents.length), "Local histories with matching records")}</div>${panel("The keyboard calendar", heatmap(view.days, report.scope.until ?? report.generatedAt, view.calendar))}`;
 }
 export function language(report: Report, view: View): string {
-  return `${stats(view)}<div class="grid">${panel("Top swears", bars(view.language.swearWords, 10))}${panel("Polite expressions", bars(view.language.politeWords, 10))}</div><div class="grid">${panel("Mild insults", bars(view.language.insultWords), "SEPARATE FROM SWEARS")}${panel(
+  return `${stats(view)}<div class="grid">${panel("Top swears", bars(view.language.swearWords, LIMITS.wordsShown))}${panel("Polite expressions", bars(view.language.politeWords, LIMITS.wordsShown))}</div><div class="grid">${panel("Mild insults", bars(view.language.insultWords), "SEPARATE FROM SWEARS")}${panel(
     "Swear severity",
     table(
       ["Severity", "Count"],
@@ -81,7 +82,7 @@ export function costs(view: View): string {
     m.cache += r.cacheRead + r.cacheWrite;
     models.set(key, m);
   }
-  return `<div class="stats">${stat("PRICED API ESTIMATE", money(c.estimatedCost), "Only usage with a known price is included", true)}${stat("RECORDED CHARGES", money(c.billedCost), "Charges recorded by the agent")}${stat("USAGE RECORDS", count(c.requests), `${c.unpricedRequests} with unknown prices`)}${stat("CACHE TOKENS", count(c.cacheRead + c.cacheWrite), `${count(c.cacheRead)} read · ${count(c.cacheWrite)} write`)}</div><div class="notice">Prices: ${esc(c.pricing.source)}${c.pricing.fetchedAt ? ` · ${esc(formatDate(c.pricing.fetchedAt))}` : ""}. ${esc(c.pricing.warning ?? "")} Estimates use API token prices; your subscription, service tier, or discounts can differ. Unknown usage is unavailable, not free.</div>${panel(
+  return `<div class="stats">${stat("PRICED API ESTIMATE", money(c.estimatedCost), "Only usage with a known price is included", true)}${stat("RECORDED CHARGES", money(c.billedCost), "Charges recorded by the agent")}${stat("USAGE RECORDS", count(c.requests), `${c.unpricedRequests} missing usage or prices`)}${stat("CACHE TOKENS", count(c.cacheRead + c.cacheWrite), `${count(c.cacheRead)} read · ${count(c.cacheWrite)} write`)}</div><div class="notice">Prices: ${esc(c.pricing.source)}${c.pricing.fetchedAt ? ` · ${esc(formatDate(c.pricing.fetchedAt))}` : ""}. ${esc(c.pricing.warning ?? "")} Estimates use API token prices; your subscription, service tier, or discounts can differ. Unknown usage is unavailable, not free.</div>${panel(
     "Model breakdown",
     table(
       ["Model", "Records", "Input", "Output + reasoning", "Cache", "Estimate"],
@@ -122,7 +123,7 @@ export function costs(view: View): string {
   )}`;
 }
 export function assistant(view: View): string {
-  return `<div class="stats">${stat("PATTERN HITS", count(view.slop.hits), "Common stock phrases and formatting habits", true)}${stat("AFFECTED MESSAGES", count(view.slop.affectedMessages), "Messages containing at least one pattern")}${stat("ASSISTANT MESSAGES", count(view.slop.messages), "Only assistant prose is inspected")}${stat("AFFECTED SHARE", view.slop.messages ? `${count((view.slop.affectedMessages / view.slop.messages) * 100)}%` : "Unavailable", "Code blocks are excluded")}</div><div class="notice">These are writing-pattern matches, not proof of low quality. Context matters, and normal phrases can also match.</div><div class="grid">${panel("Most common patterns", bars(view.slop.tells, 15))}${panel(
+  return `<div class="stats">${stat("PATTERN HITS", count(view.slop.hits), "Common stock phrases and formatting habits", true)}${stat("AFFECTED MESSAGES", count(view.slop.affectedMessages), "Messages containing at least one pattern")}${stat("ASSISTANT MESSAGES", count(view.slop.messages), "Only assistant prose is inspected")}${stat("AFFECTED SHARE", view.slop.messages ? `${count((view.slop.affectedMessages / view.slop.messages) * 100)}%` : "Unavailable", "Code blocks are excluded")}</div><div class="notice">These are writing-pattern matches, not proof of low quality. Context matters, and normal phrases can also match.</div><div class="grid">${panel("Most common patterns", bars(view.slop.tells, LIMITS.slopShown))}${panel(
     "Agent writing patterns",
     table(
       ["Agent", "Messages", "Hits", "Affected"],

@@ -53,5 +53,20 @@ export function daysBefore(value: string, days: number): string {
   return new Date(new Date(value).getTime() - days * TIME.dayMs).toISOString();
 }
 export function inRange(value: string | undefined, since?: string, until?: string): boolean {
-  return value ? (!since || value >= since) && (!until || value < until) : !since && !until;
+  if (!value) return !since && !until;
+  const date = Date.parse(value);
+  return (
+    Number.isFinite(date) &&
+    (!since || date >= Date.parse(since)) &&
+    (!until || date < Date.parse(until))
+  );
+}
+
+export function calendarRange(
+  end: string,
+  days: number,
+  exclusiveEnd = false,
+): { since: string; until: string } {
+  const last = dayKey(new Date(Date.parse(end) - (exclusiveEnd ? 1 : 0)).toISOString())!;
+  return { since: daysBefore(last, days - 1), until: daysBefore(last, -1) };
 }

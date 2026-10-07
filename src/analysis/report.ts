@@ -13,7 +13,7 @@ import { createDetector } from "./detector.js";
 import { detectSlop } from "./slop.js";
 import { deduplicate } from "./dedupe.js";
 import { addLanguage, emptyLanguage, emptySlop, finalizeLanguage, tally } from "./summaries.js";
-import { dayKey, daysBefore, inRange } from "../utils/format.js";
+import { dateArgument, dayKey, daysBefore, inRange } from "../utils/format.js";
 import { addCost, emptyCost, priceUsage } from "../pricing/summary.js";
 import { loadPricingCatalog, pricingCachePath } from "../pricing/catalog.js";
 import { readerContext, readHistories } from "../readers/index.js";
@@ -33,6 +33,11 @@ export function buildReport(
   catalog: PriceCatalog,
   generatedAt = new Date().toISOString(),
 ): Report {
+  options = {
+    ...options,
+    since: options.since ? dateArgument(options.since) : undefined,
+    until: options.until ? dateArgument(options.until) : undefined,
+  };
   const messages = deduplicate(data.messages);
   const usage = deduplicate(data.usage);
   const detect = createDetector(options.config);

@@ -177,6 +177,8 @@ h3 {
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: repeat(7, 1fr);
+  grid-template-columns: repeat(var(--heat-weeks), minmax(0, 1fr));
+  width: min(100%, calc(var(--heat-weeks) * 40px));
   gap: 5px;
   max-width: 580px;
 }
@@ -189,4 +191,8 @@ h3 {
 .heat-cell:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
+}
+
+.heat-padding {
+  visibility: hidden;
 }
