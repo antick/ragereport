@@ -1,6 +1,7 @@
 import { SLOP_SIGNALS } from "../config/slop.js";
 import type { SlopMatch } from "../types.js";
 import { maskCode } from "./masking.js";
+import { selectMatches } from "./matches.js";
 export function detectSlop(text: string): SlopMatch[] {
   const prose = maskCode(text);
   const candidates: SlopMatch[] = [];
@@ -22,9 +23,5 @@ export function detectSlop(text: string): SlopMatch[] {
       index: marks[0].index,
       end: marks[0].index + marks[0][0].length,
     });
-  const matches: SlopMatch[] = [];
-  for (const candidate of candidates.sort((a, b) => b.end - b.index - (a.end - a.index)))
-    if (!matches.some((m) => m.index < candidate.end && candidate.index < m.end))
-      matches.push(candidate);
-  return matches.sort((a, b) => a.index - b.index);
+  return selectMatches(candidates);
 }

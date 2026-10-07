@@ -3,9 +3,27 @@ export interface TextRange {
   end: number;
 }
 export function maskCode(text: string): string {
-  return text.replace(/(?:```|~~~)[\s\S]*?(?:(?:```|~~~)|$)|`[^`\n]*`/gu, (match) =>
-    match.replace(/[^\n]+/gu, (line) => " ".repeat(line.length)),
+  const blank = (value: string) => value.replace(/[^\n]+/gu, (line) => " ".repeat(line.length));
+  const pieces: string[] = [];
+  let start = 0;
+  let fence: { index: number; marker: string } | undefined;
+  for (const match of text.matchAll(/`{3,}|~{3,}/gu)) {
+    if (!fence) fence = { index: match.index, marker: match[0] };
+    else if (
+      match[0][0] === fence.marker[0] &&
+      match[0].length >= fence.marker.length &&
+      /^[ \t]{0,3}$/u.test(text.slice(text.lastIndexOf("\n", match.index - 1) + 1, match.index))
+    ) {
+      const end = match.index + match[0].length;
+      pieces.push(text.slice(start, fence.index), blank(text.slice(fence.index, end)));
+      start = end;
+      fence = undefined;
+    }
+  }
+  pieces.push(
+    fence ? text.slice(start, fence.index) + blank(text.slice(fence.index)) : text.slice(start),
   );
+  return pieces.join("").replace(/(`+)(?!`)[^\n]*?\1(?!`)/gu, blank);
 }
 export function insideRange(start: number, end: number, ranges: TextRange[]): boolean {
   let low = 0;

@@ -5,11 +5,11 @@ import type {
   LanguageSummary,
   Report,
   SlopSummary,
-  WordCount,
 } from "../types.js";
 import { emptyLanguage, emptySlop, finalizeLanguage } from "../analysis/summaries.js";
 import { emptyCost, addCost } from "../pricing/summary.js";
 import { daysBefore } from "../utils/format.js";
+import { mergeWords } from "../analysis/words.js";
 export interface Filters {
   agent: string;
   range: string;
@@ -22,19 +22,6 @@ export interface View {
   days: DailySummary[];
   agents: AgentSummary[];
   filtered: boolean;
-}
-function mergeWords(target: WordCount[], words: WordCount[]): void {
-  for (const word of words) {
-    let entry = target.find((w) => w.group === word.group);
-    if (!entry) {
-      entry = { group: word.group, count: 0, variants: {} };
-      target.push(entry);
-    }
-    entry.count += word.count;
-    for (const [variant, count] of Object.entries(word.variants))
-      entry.variants[variant] = (entry.variants[variant] ?? 0) + count;
-  }
-  target.sort((a, b) => b.count - a.count || a.group.localeCompare(b.group));
 }
 export function sumLanguage(values: LanguageSummary[], noRoast = false): LanguageSummary {
   const total = emptyLanguage();

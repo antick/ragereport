@@ -19,6 +19,7 @@ export const LIMITS = {
   jsonHeaderBytes: 2048,
 } as const;
 export const SCAN_CACHE = { directory: "scans", version: 1 } as const;
+export const DEDUPE = { mirrorMs: 2_000 } as const;
 export const FILE_ACCESS = {
   directoryMode: 0o700,
   fileMode: 0o600,

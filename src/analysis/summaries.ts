@@ -1,5 +1,6 @@
 import { TIER_DEFINITIONS } from "../config/constants.js";
 import type { LanguageSummary, SlopSummary, TextMatch, WordCount, Tier } from "../types.js";
+import { addWord } from "./words.js";
 export function tier(swears: number, polite: number, noRoast = false): Tier {
   if (!swears && !polite)
     return {
@@ -39,13 +40,7 @@ export function emptySlop(): SlopSummary {
   return { messages: 0, hits: 0, affectedMessages: 0, tells: [] };
 }
 export function tally(list: WordCount[], group: string, variant: string): void {
-  let entry = list.find((w) => w.group === group);
-  if (!entry) {
-    entry = { group, count: 0, variants: {} };
-    list.push(entry);
-  }
-  entry.count++;
-  entry.variants[variant] = (entry.variants[variant] ?? 0) + 1;
+  addWord(list, group, variant);
 }
 export function addLanguage(summary: LanguageSummary, matches: TextMatch[]): void {
   summary.messages++;

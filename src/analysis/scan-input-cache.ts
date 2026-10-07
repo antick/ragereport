@@ -15,6 +15,7 @@ import { walk } from "../readers/files.js";
 import { LIMITS, SCAN_CACHE } from "../config/constants.js";
 import { writePrivateFile } from "../utils/files.js";
 import { createDetector } from "./detector.js";
+import { recordIdentity, recordSignature } from "./identity.js";
 
 interface FileCache {
   version: number;
@@ -73,16 +74,6 @@ async function collect(
   }
   if (count) context.onProgress?.({ type: "records", messages: count, usage: 0 });
   return records;
-}
-function identity(record: Message): string | undefined {
-  return record.id
-    ? JSON.stringify([
-        record.originAgent ?? record.agent,
-        record.originSession ?? record.session,
-        record.role,
-        record.id,
-      ])
-    : undefined;
 }
 
 export async function readCachedScan(
@@ -177,9 +168,9 @@ export async function readCachedScan(
   const reload = new Set<Batch>();
   for (const batch of batches)
     for (const record of batch.records) {
-      const id = identity(record);
+      const id = recordIdentity(record);
       if (!id) continue;
-      const signature = record.computed?.signature ?? hash(`${record.role}\0${record.text.trim()}`);
+      const signature = recordSignature(record);
       const previous = seen.get(id);
       if (previous && previous.signature !== signature) {
         if (batch.cached) reload.add(batch);
