@@ -1,0 +1,57 @@
+---
+import { SITE } from "@/config/site";
+import { SAMPLE } from "@/config/sample";
+---
+
+<div class="report-preview" aria-label="Illustration of the synthetic sample report">
+  <div class="receipt-top">
+    <span>R/R</span>
+    <span>
+      PERSONAL HISTORY
+      <br />
+      PUBLIC SERVICE
+    </span>
+    <span>NO. 001</span>
+  </div>
+  <div class="receipt-title">
+    <span class="eyebrow">THE VERDICT IS IN</span>
+    <h2>
+      Keyboard
+      <br />
+      <em>on Fire.</em>
+    </h2>
+    <div class="verdict-stamp" aria-hidden="true">
+      CERTIFIED
+      <br />
+      LOCAL RAGE
+    </div>
+  </div>
+  <p class="receipt-roast">
+    The bugs survived.
+    <br />
+    Your patience did not.
+  </p>
+  <div class="receipt-stats">
+    {SAMPLE.stats.map(({ label, value }) => (
+      <div>
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+    ))}
+  </div>
+  <div class="ratio-line">
+    <span>Rage ratio</span>
+    <strong>
+      {SAMPLE.ratio} <span>/ swears ÷ polite</span>
+    </strong>
+  </div>
+  <div class="ratio-track" aria-hidden="true">
+    <span></span>
+  </div>
+  <div class="receipt-footer">
+    <span>SYNTHETIC DATA · {SAMPLE.messages} MESSAGES</span>
+    <a href={SITE.sample}>
+      Read the full report <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</div>

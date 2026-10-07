@@ -7,17 +7,22 @@
     "build:cli": "turbo run build --filter=ragereport",
     "cli": "pnpm --filter ragereport start",
     "dev:cli": "pnpm --filter ragereport dev",
-    "demo": "pnpm --filter ragereport demo",
+    "demo": "pnpm build:cli && pnpm --filter ragereport demo",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "format": "oxfmt --check .",
-    "format:write": "oxfmt .",
+    "format": "oxfmt --check . && prettier --check \"apps/landing/src/**/*.astro\"",
+    "format:write": "oxfmt . && prettier --write \"apps/landing/src/**/*.astro\"",
     "check": "pnpm format && turbo run typecheck lint test",
-    "pack:cli": "pnpm --filter ragereport exec npm pack --dry-run"
+    "pack:cli": "pnpm --filter ragereport exec npm pack --dry-run",
+    "dev": "turbo run dev --filter=@ragereport/landing",
+    "build:landing": "turbo run build --filter=@ragereport/landing",
+    "preview": "pnpm --filter @ragereport/landing preview"
   },
   "devDependencies": {
     "oxfmt": "0.71.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
     "turbo": "2.11.7"
   },
   "engines": {

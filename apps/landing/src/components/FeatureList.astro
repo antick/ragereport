@@ -1,0 +1,58 @@
+---
+import { FEATURES } from "@/config/site";
+import { SAMPLE } from "@/config/sample";
+---
+
+<section class="features section-shell" id="what-it-finds" aria-labelledby="features-heading">
+  <div class="section-heading">
+    <span class="eyebrow">A DIFFERENT KIND OF CODE REVIEW</span>
+    <h2 id="features-heading">
+      Three sides of
+      <br />
+      <em>the same session.</em>
+    </h2>
+    <p>
+      You already know what you built.
+      <br />
+      Here’s how it went down.
+    </p>
+  </div>
+  <div class="feature-list">
+    {FEATURES.map((feature) => (
+      <article class="feature-row">
+        <div class="feature-number">{feature.number}</div>
+        <div class="feature-copy">
+          <span class="eyebrow">{feature.label}</span>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+          <span class="feature-detail">{feature.detail}</span>
+        </div>
+        <div class:list={["feature-illustration", feature.illustration]} aria-hidden="true">
+          {feature.illustration === "words" &&
+            SAMPLE.words.map(({ text, count, swear }) => (
+              <span class:list={[{ "word-swear": swear }]}>
+                {text}
+                <small>{count}</small>
+              </span>
+            ))}
+          {feature.illustration === "cost" &&
+            SAMPLE.tokens.map(({ label, value }) => (
+              <div>
+                <span>{label}</span>
+                <i></i>
+                <strong>{value}</strong>
+              </div>
+            ))}
+          {feature.illustration === "slop" &&
+            SAMPLE.phrases.map(({ before, highlighted, after }) => (
+              <span>
+                “{before}
+                {highlighted && <mark>{highlighted}</mark>}
+                {after}”
+              </span>
+            ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

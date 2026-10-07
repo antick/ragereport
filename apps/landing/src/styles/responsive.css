@@ -1,0 +1,377 @@
+@media (min-width: 1500px) {
+  .hero {
+    padding-block: 100px;
+  }
+}
+@media (max-width: 1100px) {
+  .hero {
+    gap: 42px;
+  }
+  .hero h1 {
+    font-size: 76px;
+  }
+  .hero-description {
+    font-size: 13px;
+  }
+  .hero-actions a {
+    padding-inline: 14px;
+    font-size: 11px;
+  }
+  .receipt-title h2 {
+    font-size: 45px;
+  }
+  .verdict-stamp {
+    right: -8px;
+    font-size: 7px;
+  }
+  .agent-list {
+    gap: 15px 20px;
+  }
+  .feature-row {
+    gap: 25px;
+  }
+  .section-heading > p {
+    font-size: 12px;
+  }
+  .privacy-inner {
+    grid-template-columns: 56px 1.5fr 1fr;
+    gap: 24px;
+  }
+  .privacy-inner h2 {
+    font-size: 36px;
+  }
+  .privacy-list {
+    padding-left: 20px;
+    font-size: 9px;
+  }
+  .faq-section {
+    gap: 40px;
+  }
+  .faq-section .section-heading h2 {
+    font-size: 43px;
+  }
+  .start-section {
+    gap: 40px;
+  }
+}
+@media (max-width: 800px) {
+  .section-shell {
+    width: calc(100% - 56px);
+  }
+  .masthead {
+    min-height: 82px;
+  }
+  .masthead nav {
+    gap: 20px;
+    font-size: 11px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding-block: 50px;
+  }
+  .hero h1 {
+    font-size: 85px;
+  }
+  .hero-description {
+    font-size: 15px;
+  }
+  .hero-actions a {
+    font-size: 12px;
+    padding-inline: 20px;
+  }
+  .hero-report {
+    width: min(430px, 100%);
+    margin-inline: auto;
+  }
+  .receipt-title h2 {
+    font-size: 55px;
+  }
+  .verdict-stamp {
+    right: 3px;
+    font-size: 8px;
+  }
+  .agents-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .agent-list {
+    justify-content: flex-start;
+  }
+  .features {
+    padding-top: 60px;
+  }
+  .section-heading h2 {
+    font-size: 49px;
+  }
+  .section-heading > p {
+    position: static;
+    margin-top: 20px;
+  }
+  .feature-row {
+    grid-template-columns: 30px 1fr;
+    gap: 18px;
+    padding-block: 28px;
+  }
+  .feature-illustration {
+    grid-column: 2;
+    margin-left: 0;
+    max-width: 390px;
+  }
+  .feature-copy p {
+    max-width: none;
+  }
+  .commands-section {
+    padding-block: 45px 60px;
+  }
+  .privacy-inner {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .privacy-symbol {
+    font-size: 12px;
+  }
+  .privacy-inner h2 {
+    font-size: 43px;
+  }
+  .privacy-inner p {
+    max-width: 550px;
+  }
+  .privacy-list {
+    margin-top: 3px;
+    padding-left: 0;
+    border-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 10px;
+  }
+  .privacy-list li + li {
+    margin-top: 0;
+  }
+  .faq-section {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding-block: 60px;
+  }
+  .faq-section .section-heading {
+    margin-bottom: 0;
+  }
+  .faq-section .section-heading h2 {
+    font-size: 49px;
+  }
+  .start-section {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 50px;
+  }
+  .start-copy h2 {
+    font-size: 58px;
+  }
+  .install-box pre {
+    font-size: 12px;
+  }
+  footer.section-shell {
+    grid-template-columns: 1fr 1fr;
+  }
+  footer > div {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+  .footer-note {
+    padding-top: 5px;
+  }
+}
+@media (max-width: 480px) {
+  .section-shell {
+    width: calc(100% - 40px);
+  }
+  .masthead {
+    min-height: 74px;
+  }
+  .wordmark {
+    font-size: 20px;
+  }
+  .brand-mark {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .masthead nav {
+    gap: 15px;
+    font-size: 10px;
+  }
+  .masthead nav > :first-child {
+    display: none;
+  }
+  .source-link {
+    padding: 8px 10px;
+  }
+  .hero {
+    padding-block: 40px 46px;
+  }
+  .hero-kicker {
+    font-size: 8px;
+  }
+  .hero h1 {
+    font-size: clamp(60px, 17vw, 80px);
+    margin-block: 22px;
+  }
+  .hero-description {
+    font-size: 13px;
+  }
+  .desktop-break {
+    display: none;
+  }
+  .hero-actions {
+    gap: 8px;
+  }
+  .hero-actions a {
+    padding-inline: 13px;
+    font-size: 10px;
+    height: 42px;
+  }
+  .hero-actions a span {
+    margin-left: 3px;
+    font-size: 15px;
+  }
+  .hero-note {
+    font-size: 8px;
+  }
+  .report-annotation {
+    font-size: 8px;
+  }
+  .report-preview {
+    padding: 20px 22px;
+  }
+  .receipt-title h2 {
+    font-size: 49px;
+  }
+  .verdict-stamp {
+    right: -3px;
+    padding: 8px 6px;
+    font-size: 7px;
+  }
+  .receipt-stats span {
+    font-size: 8px;
+  }
+  .ratio-line {
+    font-size: 8px;
+  }
+  .ratio-line strong span {
+    font-size: 7px;
+  }
+  .receipt-footer {
+    flex-wrap: wrap;
+    font-size: 7px;
+    gap: 10px;
+  }
+  .agent-list {
+    gap: 14px 20px;
+  }
+  .agent-list span {
+    font-size: 11px;
+  }
+  .section-heading h2 {
+    font-size: 43px;
+  }
+  .feature-row {
+    grid-template-columns: 23px 1fr;
+    gap: 13px;
+  }
+  .feature-copy h3 {
+    font-size: 23px;
+  }
+  .feature-copy p {
+    font-size: 12px;
+  }
+  .feature-illustration {
+    padding: 20px;
+  }
+  .command-tabs {
+    padding: 22px 18px;
+  }
+  .command-tab-list {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    row-gap: 18px;
+    column-gap: 15px;
+    margin-bottom: 24px;
+  }
+  .command-tab-list button {
+    justify-content: flex-start;
+    font-size: 10px;
+    min-height: 28px;
+  }
+  .command-line {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .command-line > code {
+    font-size: 12px;
+    flex: 1;
+  }
+  .command-line > .copy-control {
+    flex-basis: 100%;
+    margin-top: 7px;
+    margin-left: 0;
+  }
+  .command-panel {
+    min-height: 153px;
+  }
+  .command-panel > p {
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .terminal-header {
+    padding-inline: 18px;
+    font-size: 8px;
+  }
+  .terminal-footer {
+    padding-inline: 18px;
+    font-size: 7px;
+    flex-wrap: wrap;
+  }
+  .privacy-section {
+    padding-block: 42px;
+  }
+  .privacy-inner h2 {
+    font-size: 36px;
+  }
+  .privacy-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .faq-section .section-heading h2 {
+    font-size: 43px;
+  }
+  .faq-list summary {
+    font-size: 12px;
+  }
+  .start-copy h2 {
+    font-size: 53px;
+  }
+  .install-box {
+    padding: 18px;
+  }
+  .install-box pre {
+    font-size: 10px;
+    line-height: 2.4;
+  }
+  footer.section-shell {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

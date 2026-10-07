@@ -1,0 +1,221 @@
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 96px;
+  border-bottom: 1px solid var(--line);
+}
+.masthead nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 12px;
+}
+.masthead nav a:hover {
+  color: var(--red);
+}
+.source-link {
+  border: 1px solid var(--line);
+  padding: 10px 15px;
+  border-radius: 2px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.18fr 1fr;
+  gap: 72px;
+  padding-block: 76px 80px;
+  align-items: center;
+}
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.065em;
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.hero h1 {
+  margin-block: 26px;
+  font-size: clamp(60px, 6.8vw, 94px);
+  line-height: 0.99;
+}
+.hero h1 em {
+  color: var(--red);
+}
+.hero-description {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--faded);
+}
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.hero-actions a {
+  border-radius: 2px;
+  height: 44px;
+  padding-inline: 18px;
+  font-size: 12px;
+}
+.hero-actions a span {
+  margin-left: 10px;
+  font-size: 17px;
+}
+.hero-note {
+  margin-top: 16px;
+  font-family: var(--mono);
+  color: var(--faded);
+  font-size: 10px;
+}
+.hero-note span {
+  margin-right: 5px;
+}
+.report-annotation {
+  display: block;
+  margin-bottom: 13px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--faded);
+  text-align: right;
+}
+.report-preview {
+  position: relative;
+  padding: 25px 29px 20px;
+  border: 1px solid var(--ink);
+  background: #fffcf4;
+  box-shadow: 6px 6px 0 #e2ddd0;
+}
+.receipt-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.07em;
+}
+.receipt-top > :first-child {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.1em;
+}
+.receipt-top > :nth-child(2) {
+  flex: 1;
+  line-height: 1.5;
+}
+.receipt-title {
+  position: relative;
+  padding-top: 20px;
+}
+.receipt-title .eyebrow {
+  font-size: 9px;
+}
+.receipt-title h2 {
+  font-size: 53px;
+  line-height: 0.95;
+  margin-top: 10px;
+}
+.receipt-title h2 em {
+  color: var(--red);
+}
+.verdict-stamp {
+  position: absolute;
+  right: -3px;
+  top: 47px;
+  border: 1px solid var(--red);
+  color: var(--red);
+  padding: 10px 8px;
+  transform: rotate(-12deg);
+  font-family: var(--mono);
+  font-size: 8px;
+  text-align: center;
+  line-height: 1.8;
+}
+.receipt-roast {
+  margin-block: 16px 20px;
+  color: var(--faded);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.receipt-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-block: 1px dashed var(--line);
+}
+.receipt-stats > div {
+  padding-block: 14px;
+}
+.receipt-stats > div + div {
+  padding-left: 20px;
+  border-left: 1px dashed var(--line);
+}
+.receipt-stats span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--faded);
+}
+.receipt-stats strong {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.1;
+}
+.receipt-stats > :first-child strong {
+  color: var(--red);
+}
+.ratio-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  margin-block: 15px 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+}
+.ratio-line strong {
+  font-weight: 500;
+}
+.ratio-line strong span {
+  color: var(--faded);
+  font-size: 8px;
+  font-weight: 400;
+}
+.ratio-track {
+  height: 7px;
+  background: #ece7da;
+}
+.ratio-track span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: var(--red);
+}
+.receipt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 7px;
+  color: var(--faded);
+}
+.receipt-footer a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 8px;
+}

@@ -1,0 +1,211 @@
+---
+import Page from "@/layouts/Page.astro";
+import ReportPreview from "@/components/ReportPreview.astro";
+import FeatureList from "@/components/FeatureList.astro";
+import CommandTabs from "@/components/CommandTabs";
+import { CopyButton } from "@/components/CopyButton";
+import { buttonVariants } from "@/components/ui/button";
+import { AGENTS, FAQS, INSTALL_COMMAND, SITE } from "@/config/site";
+---
+
+<Page>
+  <header class="masthead section-shell">
+    <a class="wordmark" href="/" aria-label="RageReport home">
+      <span class="brand-mark" aria-hidden="true">
+        r/r
+      </span>
+      ragereport<span class="brand-dot">.</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#what-it-finds">The report</a>
+      <a href={SITE.docs}>
+        Docs <span aria-hidden="true">↗</span>
+      </a>
+      <a class="source-link" href={SITE.repository}>
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <div class="hero-kicker">
+          <span class="status-dot" aria-hidden="true"></span> A FIELD REPORT FROM YOUR TERMINAL
+        </div>
+        <h1 id="hero-heading">
+          Your keyboard
+          <br />
+          has a <em>temper.</em>
+        </h1>
+        <p class="hero-description">
+          You write code. You lose patience. You say please.
+          <br class="desktop-break" /> RageReport turns your coding-agent history into
+          <br class="desktop-break" /> receipts for all of it.
+        </p>
+        <div class="hero-actions">
+          <a href="#get-started" class:list={[buttonVariants({ size: "lg" }), "primary-cta"]}>
+            Run it locally <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href={SITE.sample}
+            class:list={[buttonVariants({ variant: "outline", size: "lg" }), "sample-cta"]}
+          >
+            Open sample report <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <p class="hero-note">
+          <span aria-hidden="true">↳</span> Free. Open source. Stays on your machine.
+        </p>
+      </div>
+      <div class="hero-report">
+        <span class="report-annotation">exhibit a. your patience, quantified.</span>
+        <ReportPreview />
+      </div>
+    </section>
+    <section class="agents-section section-shell" aria-label="Supported coding agents">
+      <div class="agents-caption">
+        <span class="eyebrow">READS THE ROOM.</span>
+        <p>And nine local agent histories.</p>
+      </div>
+      <div class="agent-list">
+        {AGENTS.map((agent) => (
+          <span>{agent}</span>
+        ))}
+      </div>
+    </section>
+    <FeatureList />
+    <section class="commands-section section-shell" aria-labelledby="commands-heading">
+      <div class="section-heading">
+        <span class="eyebrow">SMALL COMMANDS. LONG MEMORY.</span>
+        <h2 id="commands-heading">
+          Pick your
+          <br />
+          <em>paper trail.</em>
+        </h2>
+        <p>
+          A quick terminal scan or the whole browser report.
+          <br />
+          Use the same local history. Ask a different question.
+        </p>
+      </div>
+      <div class="commands-box">
+        <div class="terminal-header">
+          <span class="terminal-dots" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <span>ragereport — terminal</span>
+          <span>LOCAL</span>
+        </div>
+        <CommandTabs client:load />
+        <noscript>
+          <p class="noscript-note">
+            Run <code>pnpm cli scan --week</code>, <code>pnpm cli cost --month --offline</code>,{" "}
+            <code>pnpm cli slop --week</code>, or <code>pnpm cli report --offline</code> from your
+            checkout.
+          </p>
+        </noscript>
+        <div class="terminal-footer">
+          <span>ENGLISH + PHONETIC HINDI</span>
+          <span>NO API KEY REQUIRED</span>
+        </div>
+      </div>
+    </section>
+    <section class="privacy-section" aria-labelledby="privacy-heading">
+      <div class="section-shell privacy-inner">
+        <div class="privacy-symbol" aria-hidden="true">
+          [local]
+        </div>
+        <div>
+          <span class="eyebrow">YOUR HISTORY IS YOUR BUSINESS</span>
+          <h2 id="privacy-heading">
+            The only cloud here
+            <br />
+            <em>is the one over your deadline.</em>
+          </h2>
+          <p>
+            Your conversations stay on your computer. RageReport reads your history without changing
+            it, and language scans work entirely offline. Use <code>--offline</code> for cost
+            reports too.
+          </p>
+        </div>
+        <ul class="privacy-list">
+          <li>No account</li>
+          <li>No transcript uploads</li>
+          <li>No runtime dependencies in the CLI</li>
+          <li>MIT licensed</li>
+        </ul>
+      </div>
+    </section>
+    <section class="faq-section section-shell" aria-labelledby="faq-heading">
+      <div class="section-heading">
+        <span class="eyebrow">BEFORE YOU ASK</span>
+        <h2 id="faq-heading">
+          A few
+          <br />
+          <em>reasonable questions.</em>
+        </h2>
+      </div>
+      <div class="faq-list">
+        {FAQS.map(({ question, answer }) => (
+          <details>
+            <summary>
+              {question}
+              <span aria-hidden="true">+</span>
+            </summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+    <section class="start-section section-shell" id="get-started" aria-labelledby="start-heading">
+      <div class="start-copy">
+        <span class="eyebrow">MEET YOUR OWN RECEIPTS</span>
+        <h2 id="start-heading">
+          Go on.
+          <br />
+          <em>Run the numbers.</em>
+        </h2>
+        <p>
+          Clone it, build it, scan it. Your history stays local.
+          <br />
+          Your sense of humor is optional.
+        </p>
+        <a href={SITE.docs} class="text-link">
+          Read the documentation <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="install-box">
+        <div class="install-heading">
+          <span>RUN FROM SOURCE</span>
+          <CopyButton text={INSTALL_COMMAND} label="Copy setup commands" client:load />
+        </div>
+        <pre><code>{INSTALL_COMMAND}</code></pre>
+        <p>
+          Node.js 24.16+ · pnpm 12.9.1
+          <br />
+          <span>Npm release coming soon. Source available now.</span>
+        </p>
+      </div>
+    </section>
+  </main>
+  <footer class="section-shell">
+    <a class="wordmark" href="/">
+      ragereport<span class="brand-dot">.</span>
+    </a>
+    <p>
+      A small tool for big feelings.
+      <br />
+      <a href={SITE.author}>
+        Made by Pankaj at potion.sh <span aria-hidden="true">↗</span>
+      </a>
+    </p>
+    <div>
+      <a href={SITE.repository}>Source ↗</a>
+      <a href={SITE.docs}>Documentation ↗</a>
+      <a href={`${SITE.repository}/blob/main/LICENSE`}>MIT license ↗</a>
+    </div>
+    <span class="footer-note">BUILT TO STAY LOCAL.</span>
+  </footer>
+</Page>
