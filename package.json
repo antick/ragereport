@@ -1,0 +1,64 @@
+{
+  "name": "ragereport",
+  "version": "0.1.0",
+  "description": "Local rage, politeness, token cost, and AI writing reports for coding agents",
+  "keywords": [
+    "cli",
+    "coding-agents",
+    "hinglish",
+    "local",
+    "profanity",
+    "token-usage"
+  ],
+  "homepage": "https://github.com/antick/ragereport#readme",
+  "bugs": {
+    "url": "https://github.com/antick/ragereport/issues"
+  },
+  "license": "MIT",
+  "author": "Pankaj",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antick/ragereport.git"
+  },
+  "bin": {
+    "ragereport": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "ragereport.example.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
+    "start": "node dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "lint": "oxlint src scripts test",
+    "format": "oxfmt --check .",
+    "format:write": "oxfmt .",
+    "check": "npm run typecheck && npm run lint && npm run format && npm test",
+    "prepack": "npm run build",
+    "demo": "node scripts/demo.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "esbuild": "0.28.2",
+    "oxfmt": "0.71.0",
+    "oxlint": "1.86.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=24.14.0"
+  }
+}

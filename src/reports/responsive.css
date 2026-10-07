@@ -1,0 +1,115 @@
+@media (max-width: 800px) {
+  .shell {
+    padding: 0 24px;
+  }
+  .edition {
+    display: none;
+  }
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    flex-wrap: wrap;
+  }
+  .filters label {
+    flex-basis: 27%;
+  }
+  .filters button {
+    flex: 1;
+  }
+  .tabs {
+    gap: 24px;
+  }
+  .intro {
+    padding-top: 35px;
+  }
+  .chart {
+    gap: 4px;
+  }
+}
+@media (max-width: 440px) {
+  .shell {
+    padding: 0 16px;
+  }
+  .masthead {
+    height: 76px;
+  }
+  .brand {
+    font-size: 16px;
+  }
+  .local-badge {
+    font-size: 8px;
+    padding: 8px;
+    letter-spacing: 1px;
+  }
+  .intro {
+    padding: 30px 0;
+  }
+  h1 {
+    letter-spacing: -1.8px;
+  }
+  .filters label {
+    flex-basis: 42%;
+  }
+  .filters label:nth-child(3) {
+    flex-basis: 100%;
+  }
+  .stats {
+    gap: 10px;
+  }
+  .stat {
+    padding: 17px 15px;
+  }
+  .stat-value {
+    font-size: 26px;
+  }
+  .panel {
+    padding: 20px;
+  }
+  .tabs {
+    gap: 20px;
+  }
+  .tabs button {
+    font-size: 11px;
+  }
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bar-row {
+    grid-template-columns: 92px minmax(0, 1fr) 35px;
+  }
+  .chart-day > span {
+    font-size: 7px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #191e19;
+    --surface: #202720;
+    --ink: #eceee6;
+    --muted: #a4ad9d;
+    --line: #3b4538;
+    --accent: #ee8758;
+    --dark: #101910;
+    --green: #9bbe85;
+    --soft: #343e2e;
+    --warning: #342719;
+  }
+  .notice {
+    border-color: #5b4530;
+    color: #e1bb92;
+  }
+  #download {
+    background: #d8dfcd;
+    color: #202720;
+    border-color: #d8dfcd;
+  }
+  .brand-icon {
+    color: #191e19;
+  }
+}

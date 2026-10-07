@@ -1,0 +1,11 @@
+{
+  "languages": ["en", "hi"],
+  "looseMatching": false,
+  "includeCode": false,
+  "ignoreWords": ["lmao", "badass"],
+  "words": [
+    { "word": "ullu", "group": "ullu", "language": "hi", "kind": "insult", "severity": "mild" },
+    { "word": "cheers", "language": "en", "kind": "polite" }
+  ],
+  "paths": {}
+}
