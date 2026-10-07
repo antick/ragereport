@@ -103,7 +103,7 @@ export function renderTerminal(report: Report, options: TerminalOptions = {}): s
     row("Estimated, priced usage", money(report.cost.estimatedCost), "green");
     row("Recorded charges", money(report.cost.billedCost), "blue");
     row("Usage records", count(report.cost.requests));
-    row("Unknown prices", count(report.cost.unpricedRequests), "yellow");
+    row("Missing usage or prices", count(report.cost.unpricedRequests), "yellow");
     row("Input / output tokens", `${count(report.cost.input)} / ${count(report.cost.output)}`);
     row("Reasoning tokens", count(report.cost.reasoning), "magenta");
     row("Cache read / write", `${count(report.cost.cacheRead)} / ${count(report.cost.cacheWrite)}`);
@@ -136,5 +136,12 @@ export function renderTerminal(report: Report, options: TerminalOptions = {}): s
       `  ${p("yellow", "No matching history. Run ragereport doctor to check locations.")}`,
     );
   lines.push("", ...coverageLines(report).map((line) => `  ${p("gray", line)}`), "");
-  return lines.join("\n");
+  return lines
+    .flatMap((line) => {
+      const plain = terminalText(line);
+      if ([...plain].length <= width) return [line];
+      const indent = line.startsWith("    ") ? "    " : "  ";
+      return wrap(plain, width - indent.length).map((part) => `${indent}${p("gray", part)}`);
+    })
+    .join("\n");
 }

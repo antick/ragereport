@@ -61,3 +61,46 @@ test("vocabulary text wraps without cutting off variants, counts, or long family
   for (const [variant, total] of Object.entries(variants))
     assert.ok(markdown.includes(`${variant} (${total})`));
 });
+
+test("narrow terminal reports wrap every section without losing numbers or model names", () => {
+  const data = {
+    messages: [
+      {
+        agent: "codex",
+        role: "user",
+        session: "session",
+        id: "user",
+        text: "fuck please",
+        timestamp: "2026-10-05T00:00:00Z",
+      },
+    ],
+    usage: [
+      {
+        agent: "codex",
+        session: "session",
+        id: "usage",
+        provider: "openai",
+        model: "a-very-long-historical-model-name",
+        timestamp: "2026-10-05T00:00:00Z",
+        input: 123456789,
+        output: 234567890,
+        reasoning: 0,
+        cacheRead: 0,
+        cacheWrite: 0,
+      },
+    ],
+  };
+  const report = buildReport(
+    data,
+    { command: "report", config: DEFAULT_CONFIG, noRoast: false },
+    { source: "fallback", models: {} },
+    "2026-10-07T00:00:00Z",
+  );
+  for (const color of [false, true]) {
+    const output = stripVTControlCharacters(renderTerminal(report, { width: 42, color }));
+    assert.ok(output.split("\n").every((line) => [...line].length <= 42));
+    assert.match(output, /123,456,789/);
+    assert.match(output, /234,567,890/);
+    assert.ok(output.replace(/\s+/gu, "").includes("a-very-long-historical-model-name"));
+  }
+});
