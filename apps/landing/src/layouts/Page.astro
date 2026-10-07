@@ -1,12 +1,11 @@
 ---
 import { SITE } from "@/config/site";
+import ThemeScript from "@/components/ThemeScript.astro";
 import "@fontsource/dm-sans/latin-400.css";
 import "@fontsource/dm-sans/latin-500.css";
 import "@fontsource/dm-sans/latin-600.css";
 import "@fontsource/ibm-plex-mono/latin-400.css";
 import "@fontsource/ibm-plex-mono/latin-500.css";
-import "@fontsource/instrument-serif/latin-400.css";
-import "@fontsource/instrument-serif/latin-400-italic.css";
 import "@/styles/global.css";
 ---
 
@@ -26,6 +25,7 @@ import "@/styles/global.css";
     <meta property="og:url" content={SITE.url} />
     <meta name="twitter:card" content="summary" />
     <title>RageReport — Your keyboard has a temper.</title>
+    <ThemeScript />
   </head>
   <body>
     <a class="skip-link" href="#main">

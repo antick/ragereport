@@ -8,14 +8,14 @@
     gap: 42px;
   }
   .hero h1 {
-    font-size: 76px;
+    font-size: 64px;
   }
   .hero-description {
-    font-size: 13px;
+    font-size: 16px;
   }
   .hero-actions a {
     padding-inline: 14px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .agent-list {
     gap: 15px 20px;
@@ -24,7 +24,7 @@
     gap: 25px;
   }
   .section-heading > p {
-    font-size: 12px;
+    font-size: 16px;
   }
   .privacy-inner {
     grid-template-columns: 56px 1.5fr 1fr;
@@ -35,7 +35,7 @@
   }
   .privacy-list {
     padding-left: 20px;
-    font-size: 9px;
+    font-size: 14px;
   }
   .faq-section {
     gap: 40px;
@@ -47,6 +47,17 @@
     gap: 40px;
   }
 }
+@media (max-width: 1000px) {
+  .masthead {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-block: 20px;
+  }
+  .masthead-actions {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
 @media (max-width: 800px) {
   .section-shell {
     width: calc(100% - 56px);
@@ -56,7 +67,7 @@
   }
   .masthead nav {
     gap: 20px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .hero {
     grid-template-columns: 1fr;
@@ -64,17 +75,17 @@
     padding-block: 50px;
   }
   .hero h1 {
-    font-size: 85px;
+    font-size: 72px;
   }
   .hero-description {
-    font-size: 15px;
+    font-size: 18px;
   }
   .hero-actions a {
-    font-size: 12px;
+    font-size: 16px;
     padding-inline: 20px;
   }
   .hero-report {
-    width: min(430px, 100%);
+    width: 100%;
     margin-inline: auto;
   }
   .agents-section {
@@ -115,7 +126,7 @@
     gap: 22px;
   }
   .privacy-symbol {
-    font-size: 12px;
+    font-size: 16px;
   }
   .privacy-inner h2 {
     font-size: 43px;
@@ -130,7 +141,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .privacy-list li + li {
     margin-top: 0;
@@ -155,7 +166,7 @@
     font-size: 58px;
   }
   .install-box pre {
-    font-size: 12px;
+    font-size: 16px;
   }
   footer.section-shell {
     grid-template-columns: 1fr 1fr;
@@ -174,17 +185,20 @@
   }
   .masthead {
     min-height: 74px;
+    flex-wrap: wrap;
+    padding-block: 18px;
+    gap: 18px;
   }
   .wordmark {
     font-size: 20px;
   }
   .brand-mark {
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 8px;
   }
   .masthead nav {
     gap: 15px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .masthead nav > :first-child {
     display: none;
@@ -196,14 +210,14 @@
     padding-block: 40px 46px;
   }
   .hero-kicker {
-    font-size: 8px;
+    font-size: 14px;
   }
   .hero h1 {
-    font-size: clamp(60px, 17vw, 80px);
+    font-size: clamp(44px, 12vw, 64px);
     margin-block: 22px;
   }
   .hero-description {
-    font-size: 13px;
+    font-size: 16px;
   }
   .desktop-break {
     display: none;
@@ -213,32 +227,28 @@
   }
   .hero-actions a {
     padding-inline: 13px;
-    font-size: 10px;
-    height: 42px;
-  }
-  .hero-actions a span {
-    margin-left: 3px;
-    font-size: 15px;
+    font-size: 16px;
+    height: 48px;
   }
   .hero-note {
-    font-size: 8px;
+    font-size: 14px;
   }
   .report-annotation {
-    font-size: 8px;
+    font-size: 14px;
   }
   .report-preview {
     padding: 20px 22px;
   }
   .receipt-footer {
     flex-wrap: wrap;
-    font-size: 7px;
+    font-size: 14px;
     gap: 10px;
   }
   .agent-list {
     gap: 14px 20px;
   }
   .agent-list span {
-    font-size: 11px;
+    font-size: 14px;
   }
   .section-heading h2 {
     font-size: 43px;
@@ -251,7 +261,7 @@
     font-size: 23px;
   }
   .feature-copy p {
-    font-size: 12px;
+    font-size: 16px;
   }
   .feature-illustration {
     padding: 20px;
@@ -270,7 +280,7 @@
   }
   .command-tab-list button {
     justify-content: flex-start;
-    font-size: 10px;
+    font-size: 14px;
     min-height: 28px;
   }
   .command-line {
@@ -278,7 +288,7 @@
     gap: 8px;
   }
   .command-line > code {
-    font-size: 12px;
+    font-size: 16px;
     flex: 1;
   }
   .command-line > .copy-control {
@@ -290,16 +300,16 @@
     min-height: 153px;
   }
   .command-panel > p {
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 16px;
   }
   .terminal-header {
     padding-inline: 18px;
-    font-size: 8px;
+    font-size: 14px;
   }
   .terminal-footer {
     padding-inline: 18px;
-    font-size: 7px;
+    font-size: 14px;
     flex-wrap: wrap;
   }
   .privacy-section {
@@ -316,7 +326,7 @@
     font-size: 43px;
   }
   .faq-list summary {
-    font-size: 12px;
+    font-size: 16px;
   }
   .start-copy h2 {
     font-size: 53px;
@@ -325,7 +335,7 @@
     padding: 18px;
   }
   .install-box pre {
-    font-size: 10px;
+    font-size: 22px;
     line-height: 2.4;
   }
   footer.section-shell {

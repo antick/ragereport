@@ -8,8 +8,8 @@
 .masthead nav {
   display: flex;
   align-items: center;
-  gap: 30px;
-  font-size: 12px;
+  gap: 28px;
+  font-size: 16px;
 }
 .masthead nav a:hover {
   color: var(--red);
@@ -17,12 +17,43 @@
 .source-link {
   border: 1px solid var(--line);
   padding: 10px 15px;
-  border-radius: 2px;
+  border-radius: 8px;
+}
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.theme-control {
+  display: flex;
+  padding: 4px;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--raised);
+}
+.theme-control[hidden] {
+  display: none;
+}
+.theme-control button {
+  min-height: 36px;
+  padding-inline: 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: var(--faded);
+}
+.theme-control button[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.theme-control button:hover {
+  color: var(--ink);
 }
 .hero {
   display: grid;
-  grid-template-columns: 1.18fr 1fr;
-  gap: 72px;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
   padding-block: 76px 80px;
   align-items: center;
 }
@@ -31,7 +62,7 @@
   align-items: center;
   gap: 9px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.065em;
 }
 .status-dot {
@@ -41,15 +72,15 @@
   background: var(--red);
 }
 .hero h1 {
-  margin-block: 26px;
-  font-size: clamp(60px, 6.8vw, 94px);
-  line-height: 0.99;
+  margin-block: 24px;
+  font-size: clamp(56px, 5.5vw, 80px);
+  line-height: 1.06;
 }
 .hero h1 em {
   color: var(--red);
 }
 .hero-description {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.85;
   color: var(--faded);
 }
@@ -60,38 +91,32 @@
   flex-wrap: wrap;
 }
 .hero-actions a {
-  border-radius: 2px;
-  height: 44px;
+  border-radius: 8px;
+  height: 50px;
   padding-inline: 18px;
-  font-size: 12px;
-}
-.hero-actions a span {
-  margin-left: 10px;
-  font-size: 17px;
+  font-size: 16px;
 }
 .hero-note {
   margin-top: 16px;
   font-family: var(--mono);
   color: var(--faded);
-  font-size: 10px;
-}
-.hero-note span {
-  margin-right: 5px;
+  font-size: 14px;
 }
 .report-annotation {
   display: block;
   margin-bottom: 13px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   color: var(--faded);
   text-align: right;
 }
 .report-preview {
   position: relative;
   padding: 25px 29px 20px;
-  border: 1px solid var(--ink);
-  background: #fffcf4;
-  box-shadow: 6px 6px 0 #e2ddd0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 18px 48px var(--shadow);
 }
 .receipt-top {
   display: flex;
@@ -101,7 +126,7 @@
   padding-bottom: 16px;
   border-bottom: 1px solid var(--ink);
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 14px;
   letter-spacing: 0.07em;
 }
 .receipt-top > :first-child {
@@ -116,8 +141,8 @@
 .cli-help {
   margin-top: 24px;
   font-family: var(--mono);
-  font-size: 11px;
-  line-height: 1.9;
+  font-size: 15px;
+  line-height: 1.75;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -128,12 +153,12 @@
   gap: 10px;
   margin-top: 18px;
   font-family: var(--mono);
-  font-size: 7px;
+  font-size: 14px;
   color: var(--faded);
 }
 .receipt-footer a {
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 3px;
-  font-size: 8px;
+  font-size: 14px;
 }

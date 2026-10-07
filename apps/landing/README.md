@@ -1,6 +1,6 @@
 # RageReport landing page
 
-A static Astro page for `https://ragereport.potion.sh`, with Tailwind CSS and shadcn React components. Fonts are self-hosted. Only the command tabs and copy buttons hydrate; the page has no analytics, sign-up form, or history upload.
+A static Astro page for `https://ragereport.potion.sh`, with Tailwind CSS and shadcn React components. Fonts are self-hosted. The theme control uses a small script that applies before the first paint; only the command tabs and copy buttons hydrate; the page has no analytics, sign-up form, or history upload.
 
 Run from the repository root:
 
@@ -19,6 +19,7 @@ pnpm check
 - `src/config/site.ts` contains links, command examples, features, and FAQs.
 - `src/utils/cli-help.ts` runs the built CLI’s `--help` during the static build. It never reads local histories.
 - `src/layouts/Page.astro` owns metadata, fonts, and global styles.
+- `src/config/theme.ts` defines the local-time night hours (18:00–06:00) and storage key. Light/Dark overrides persist until Auto is selected.
 - `src/components/ui` contains the checked-in shadcn Button and Tabs from the official `new-york-v4` registry. `components.json` defines aliases and styling for future components.
 - Shared styles live in `src/styles`; keep responsive overrides last in the import order.
 

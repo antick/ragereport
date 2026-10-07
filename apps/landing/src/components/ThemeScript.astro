@@ -1,0 +1,59 @@
+---
+import { THEME } from "@/config/theme";
+---
+
+<script is:inline define:vars={{ settings: THEME }}>
+  (() => {
+    const root = document.documentElement;
+    const validMode = (value) => settings.modes.some(({ value: mode }) => mode === value);
+    let mode = "auto";
+    try {
+      const saved = localStorage.getItem(settings.storageKey);
+      if (validMode(saved)) mode = saved;
+    } catch {
+      // The theme control also works when browser storage is unavailable.
+    }
+
+    const apply = () => {
+      const hour = new Date().getHours();
+      const night = hour >= settings.nightStart || hour < settings.nightEnd;
+      const theme = mode === "auto" ? (night ? "dark" : "light") : mode;
+      root.dataset.theme = theme;
+      root.dataset.themeMode = mode;
+      root.classList.toggle("dark", theme === "dark");
+      for (const button of document.querySelectorAll("button[data-theme-mode]")) {
+        button.setAttribute("aria-pressed", String(button.dataset.themeMode === mode));
+      }
+      const meta = document.querySelector('meta[name="theme-color"]');
+      const background = getComputedStyle(root).getPropertyValue("--paper").trim();
+      if (meta && background) meta.content = background;
+    };
+
+    // Apply before the body paints, then connect the visible controls.
+    apply();
+    document.addEventListener("DOMContentLoaded", () => {
+      const controls = document.querySelector("[data-theme-controls]");
+      if (!controls) return;
+      controls.hidden = false;
+      apply();
+      controls.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-theme-mode]");
+        if (!button || !validMode(button.dataset.themeMode)) return;
+        mode = button.dataset.themeMode;
+        try {
+          localStorage.setItem(settings.storageKey, mode);
+        } catch {
+          // Keep the selected theme for this visit even without storage.
+        }
+        apply();
+      });
+      window.addEventListener("storage", (event) => {
+        if (event.key !== settings.storageKey) return;
+        mode = validMode(event.newValue) ? event.newValue : "auto";
+        apply();
+      });
+      document.addEventListener("visibilitychange", apply);
+      window.setInterval(apply, settings.refreshInterval);
+    });
+  })();
+</script>

@@ -3,3 +3,4 @@
 @import "./hero.css";
 @import "./layout.css";
 @import "./responsive.css";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));

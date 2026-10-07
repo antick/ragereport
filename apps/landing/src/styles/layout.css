@@ -7,10 +7,10 @@
   align-items: center;
 }
 .agents-caption .eyebrow {
-  font-size: 9px;
+  font-size: 14px;
 }
 .agents-caption p {
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 5px;
   color: var(--faded);
 }
@@ -22,7 +22,7 @@
 }
 .agent-list span {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.03em;
 }
@@ -42,13 +42,13 @@
   position: absolute;
   right: 0;
   bottom: 4px;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--faded);
   line-height: 1.8;
 }
 .feature-row {
   display: grid;
-  grid-template-columns: 54px 1.2fr 1fr;
+  grid-template-columns: 40px 1.1fr 1fr;
   gap: 35px;
   padding-block: 38px;
   border-top: 1px solid var(--line);
@@ -59,21 +59,21 @@
   padding-top: 3px;
   color: var(--red);
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 16px;
 }
 .feature-copy .eyebrow {
-  font-size: 9px;
+  font-size: 14px;
   color: var(--faded);
 }
 .feature-copy h3 {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: -0.05em;
   margin-block: 8px 10px;
 }
 .feature-copy p {
-  max-width: 390px;
-  font-size: 13px;
+  max-width: 520px;
+  font-size: 16px;
   line-height: 1.9;
   color: var(--faded);
 }
@@ -81,27 +81,28 @@
   display: block;
   margin-top: 16px;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
 }
 .feature-illustration {
   width: 100%;
-  max-width: 315px;
+  max-width: 440px;
   margin-left: auto;
   padding: 24px;
-  background: #ede9de;
-  border: 1px solid #dfdacd;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 10px;
 }
 .feature-illustration code {
   display: block;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.8;
   overflow-wrap: anywhere;
 }
 .feature-illustration ul {
   margin-top: 18px;
   padding-left: 16px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--faded);
   line-height: 2;
   list-style: disc;
@@ -110,8 +111,10 @@
   padding-block: 66px 88px;
 }
 .commands-box {
-  border: 1px solid var(--ink);
-  background: #fffcf4;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
 }
 .terminal-header {
   display: flex;
@@ -121,14 +124,14 @@
   border-bottom: 1px solid var(--line);
   padding: 16px 22px;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   color: var(--faded);
 }
 .terminal-header > :nth-child(2) {
   flex: 1;
 }
 .terminal-header > :last-child {
-  font-size: 8px;
+  font-size: 14px;
 }
 .terminal-dots {
   display: flex;
@@ -137,7 +140,7 @@
 .terminal-dots i {
   height: 6px;
   width: 6px;
-  border: 1px solid #b5b0a0;
+  border: 1px solid var(--line);
   border-radius: 50%;
 }
 .command-tabs {
@@ -154,7 +157,7 @@
   border-radius: 0;
   padding: 0;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 14px;
 }
 .command-panel {
   min-height: 97px;
@@ -166,11 +169,11 @@
 }
 .command-line > span {
   font-family: var(--mono);
-  font-size: 17px;
+  font-size: 18px;
   color: var(--red);
 }
 .command-line > code {
-  font-size: 17px;
+  font-size: 18px;
   overflow-wrap: anywhere;
 }
 .command-line > .copy-control {
@@ -179,7 +182,7 @@
 .command-panel > p {
   max-width: 620px;
   margin-top: 21px;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--faded);
   line-height: 1.8;
 }
@@ -191,18 +194,18 @@
   padding: 12px 22px;
   font-family: var(--mono);
   color: var(--faded);
-  font-size: 8px;
+  font-size: 14px;
   letter-spacing: 0.07em;
 }
 .noscript-note {
   padding: 20px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.8;
 }
 .privacy-section {
   padding-block: 64px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--privacy-background);
+  color: var(--privacy-foreground);
 }
 .privacy-inner {
   display: grid;
@@ -214,12 +217,12 @@
   align-self: start;
   padding-top: 3px;
   font-family: var(--mono);
-  color: #ed8872;
-  font-size: 13px;
+  color: var(--privacy-accent);
+  font-size: 16px;
 }
 .privacy-inner .eyebrow {
-  color: #c4beab;
-  font-size: 9px;
+  color: var(--privacy-muted);
+  font-size: 14px;
 }
 .privacy-inner h2 {
   font-size: 42px;
@@ -227,30 +230,25 @@
   margin-block: 14px 20px;
 }
 .privacy-inner p {
-  max-width: 420px;
-  color: #d2ccbc;
-  font-size: 12px;
+  max-width: 570px;
+  color: var(--privacy-muted);
+  font-size: 16px;
   line-height: 1.9;
 }
 .privacy-inner p code {
-  color: var(--paper);
-  font-size: 11px;
+  color: var(--privacy-foreground);
+  font-size: 16px;
 }
 .privacy-list {
   padding-left: 36px;
   border-left: 1px solid #55554b;
   list-style: none;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   line-height: 2.3;
 }
 .privacy-list li + li {
   margin-top: 10px;
-}
-.privacy-list li::before {
-  content: "↳";
-  color: #ed8872;
-  padding-right: 10px;
 }
 .faq-section {
   display: grid;
@@ -273,7 +271,7 @@
   align-items: center;
   justify-content: space-between;
   padding-block: 22px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   list-style: none;
 }
@@ -290,7 +288,7 @@
 }
 .faq-list details p {
   padding-bottom: 23px;
-  font-size: 12px;
+  font-size: 16px;
   color: var(--faded);
   line-height: 1.9;
 }
@@ -309,7 +307,7 @@
 }
 .start-copy p {
   color: var(--faded);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.9;
 }
 .start-copy .text-link {
@@ -317,8 +315,9 @@
 }
 .install-box {
   padding: 24px;
-  background: #eae6db;
+  background: var(--raised);
   border: 1px solid var(--line);
+  border-radius: 10px;
 }
 .install-heading {
   display: flex;
@@ -326,24 +325,24 @@
   align-items: center;
   justify-content: space-between;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.04em;
 }
 .install-box pre {
-  font-size: 10px;
+  font-size: 24px;
   line-height: 2.6;
   margin-block: 18px;
 }
 .install-box > p {
   padding-top: 16px;
-  border-top: 1px solid #d2ccbd;
+  border-top: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   line-height: 1.9;
 }
 .install-box > p > span {
   color: var(--faded);
-  font-size: 8px;
+  font-size: 14px;
 }
 footer.section-shell {
   display: grid;
@@ -356,19 +355,19 @@ footer > .wordmark {
   font-size: 21px;
 }
 footer > p {
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.9;
   color: var(--faded);
 }
 footer > p a {
-  font-size: 10px;
+  font-size: 14px;
 }
 footer > div {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 13px 20px;
-  font-size: 10px;
+  font-size: 14px;
 }
 footer a:hover {
   color: var(--red);
@@ -377,7 +376,7 @@ footer a:hover {
   grid-column: 1 / -1;
   padding-top: 24px;
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 14px;
   letter-spacing: 0.09em;
   color: var(--faded);
 }

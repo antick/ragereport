@@ -1,26 +1,47 @@
 :root {
-  --paper: #f5f2e9;
+  color-scheme: light;
+  --paper: #f7f6f2;
+  --surface: #ffffff;
+  --raised: #efeee8;
+  --shadow: #2626200a;
+  --privacy-background: #202321;
+  --privacy-foreground: #f7f6f2;
+  --privacy-muted: #c9ccc5;
+  --privacy-accent: #ffa18b;
   --ink: #262620;
   --faded: #626259;
   --line: #d4d0c4;
-  --red: #c93722;
+  --red: #b53823;
   --sans: "DM Sans", sans-serif;
-  --serif: "Instrument Serif", Georgia, serif;
   --mono: "IBM Plex Mono", monospace;
   --background: var(--paper);
   --foreground: var(--ink);
   --primary: var(--red);
   --primary-foreground: #fffaf2;
-  --secondary: #e9e5da;
+  --secondary: var(--raised);
   --secondary-foreground: var(--ink);
-  --muted: #e9e5da;
+  --muted: var(--raised);
   --muted-foreground: var(--faded);
-  --accent: #e9e5da;
+  --accent: var(--raised);
   --accent-foreground: var(--ink);
   --border: var(--line);
   --input: var(--line);
   --ring: var(--red);
   --destructive: var(--red);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171b19;
+  --surface: #1f2421;
+  --raised: #272e29;
+  --ink: #f0f2eb;
+  --faded: #b2bcb3;
+  --line: #3c453e;
+  --red: #ffa18b;
+  --primary-foreground: #211a16;
+  --shadow: #00000030;
+  --privacy-background: #111512;
 }
 
 @theme inline {
@@ -55,6 +76,8 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   a {
@@ -88,12 +111,13 @@
   }
   h1,
   h2 {
-    font-family: var(--serif);
-    font-weight: 400;
-    letter-spacing: -0.035em;
+    font-family: var(--sans);
+    font-weight: 600;
+    letter-spacing: -0.055em;
   }
   em {
-    font-weight: 400;
+    font-weight: inherit;
+    font-style: normal;
   }
   code,
   pre {
@@ -106,13 +130,13 @@
 }
 
 .section-shell {
-  width: min(1120px, calc(100% - 96px));
+  width: min(1320px, calc(100% - 96px));
   margin-inline: auto;
 }
 .eyebrow {
   display: block;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.14em;
   line-height: 1.7;
@@ -145,7 +169,7 @@
   border-radius: 3px;
   padding: 2px 5px;
   font-family: var(--mono);
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: -0.1em;
 }
 .text-link {
@@ -154,7 +178,7 @@
   gap: 18px;
   padding-bottom: 5px;
   border-bottom: 1px solid var(--ink);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
 }
 .text-link:hover {
@@ -168,12 +192,12 @@
   flex-shrink: 0;
 }
 .copy-control button {
-  border-radius: 2px;
-  font-family: var(--mono);
-  font-size: 10px;
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 14px;
 }
 .copy-error {
   max-width: 140px;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.5;
 }

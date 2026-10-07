@@ -3,6 +3,7 @@ import Page from "@/layouts/Page.astro";
 import CliPreview from "@/components/CliPreview.astro";
 import FeatureList from "@/components/FeatureList.astro";
 import CommandTabs from "@/components/CommandTabs";
+import ThemeControl from "@/components/ThemeControl.astro";
 import { CopyButton } from "@/components/CopyButton";
 import { buttonVariants } from "@/components/ui/button";
 import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site";
@@ -16,15 +17,16 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
       </span>
       ragereport<span class="brand-dot">.</span>
     </a>
-    <nav aria-label="Main navigation">
-      <a href="#what-it-finds">The report</a>
-      <a href={SITE.docs}>
-        Docs <span aria-hidden="true">↗</span>
-      </a>
-      <a class="source-link" href={SITE.repository}>
-        GitHub <span aria-hidden="true">↗</span>
-      </a>
-    </nav>
+    <div class="masthead-actions">
+      <nav aria-label="Main navigation">
+        <a href="#what-it-finds">The report</a>
+        <a href={SITE.docs}>Docs</a>
+        <a class="source-link" href={SITE.repository}>
+          GitHub
+        </a>
+      </nav>
+      <ThemeControl />
+    </div>
   </header>
   <main id="main">
     <section class="hero section-shell" aria-labelledby="hero-heading">
@@ -44,18 +46,16 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
         </p>
         <div class="hero-actions">
           <a href="#get-started" class:list={[buttonVariants({ size: "lg" }), "primary-cta"]}>
-            Run it locally <span aria-hidden="true">↗</span>
+            Run it locally
           </a>
           <a
             href={SITE.docs}
             class:list={[buttonVariants({ variant: "outline", size: "lg" }), "docs-cta"]}
           >
-            See the commands <span aria-hidden="true">↗</span>
+            See the commands
           </a>
         </div>
-        <p class="hero-note">
-          <span aria-hidden="true">↳</span> Free. Open source. Stays on your machine.
-        </p>
+        <p class="hero-note">Free. Open source. Stays on your machine.</p>
       </div>
       <div class="hero-report">
         <span class="report-annotation">straight from the CLI.</span>
@@ -174,7 +174,7 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
           Your sense of humor is optional.
         </p>
         <a href={SITE.docs} class="text-link">
-          Read the documentation <span aria-hidden="true">↗</span>
+          Read the documentation
         </a>
       </div>
       <div class="install-box">
@@ -186,7 +186,7 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
         <p>
           Node.js {ENVIRONMENT.node} · No global install
           <br />
-          <a href={SITE.npm}>Available on npm ↗</a>
+          <a href={SITE.npm}>Available on npm</a>
         </p>
       </div>
     </section>
@@ -198,14 +198,12 @@ import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site"
     <p>
       A small tool for big feelings.
       <br />
-      <a href={SITE.author}>
-        Made by Pankaj at potion.sh <span aria-hidden="true">↗</span>
-      </a>
+      <a href={SITE.author}>Made by Pankaj at potion.sh</a>
     </p>
     <div>
-      <a href={SITE.repository}>Source ↗</a>
-      <a href={SITE.docs}>Documentation ↗</a>
-      <a href={`${SITE.repository}/blob/main/LICENSE`}>MIT license ↗</a>
+      <a href={SITE.repository}>Source</a>
+      <a href={SITE.docs}>Documentation</a>
+      <a href={`${SITE.repository}/blob/main/LICENSE`}>MIT license</a>
     </div>
     <span class="footer-note">BUILT TO STAY LOCAL.</span>
   </footer>
