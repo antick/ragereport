@@ -1,15 +1,15 @@
 # Dependencies, builds, caches, and coverage
-/node_modules/
-/dist/
-/coverage/
+node_modules/
+dist/
+coverage/
 /.nyc_output/
-/.cache/
+.cache/
 /.npm/
 *.tsbuildinfo
 *.tgz
 
 # Synthetic generated demos and local report exports
-/.demo/
+.demo/
 /reports/
 /exports/
 /ragereport*.html
@@ -43,3 +43,10 @@
 Thumbs.db
 Desktop.ini
 /.idea/
+
+# Workspace tooling and generated package license
+.turbo/
+.astro/
+.vercel/
+/packages/ragereport/LICENSE
+/apps/landing/public/demo.html

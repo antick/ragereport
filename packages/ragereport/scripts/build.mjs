@@ -1,9 +1,9 @@
 import { build } from "esbuild";
-import { chmod, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { chmod, copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { watch } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const WATCH_DEBOUNCE_MS = 150;
@@ -43,6 +43,7 @@ async function buildAll(clean = false) {
     stdio: "inherit",
   });
   await chmod("dist/cli.js", 0o755);
+  await copyFile(resolve(root, "../../LICENSE"), "LICENSE");
   const manifest = JSON.parse(await readFile("package.json", "utf8"));
   await writeFile("dist/version.json", JSON.stringify({ version: manifest.version }));
   console.log("Built RageReport CLI, library, and standalone reports");

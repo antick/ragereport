@@ -1,4 +1,13 @@
 {
   "printWidth": 100,
-  "ignorePatterns": ["dist/**", ".demo/**", "node_modules/**"]
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.demo/**",
+    "**/node_modules/**",
+    "**/.astro/**",
+    "**/.turbo/**",
+    "**/*.astro",
+    "apps/landing/public/demo.html",
+    "pnpm-lock.yaml"
+  ]
 }

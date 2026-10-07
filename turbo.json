@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "globalDependencies": [".nvmrc", ".npmrc", ".oxfmtrc.json"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "LICENSE"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/LICENSE"]
+    },
+    "typecheck": {},
+    "lint": {},
+    "test": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

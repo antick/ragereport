@@ -1,61 +1,18 @@
-# Contributing to RageReport
+# Contributing
 
-Thanks for helping improve RageReport. Reader fixes, phonetic Hindi spelling variants, useful report improvements, and clear bug reports are welcome.
-
-## Local setup
-
-Use Node.js 24.14 or newer. The repository's `.nvmrc` selects the development version.
+Use Node 24.21.0 and pnpm 12.9.1. Run these commands from the repository root:
 
 ```sh
-git clone https://github.com/antick/ragereport.git
-cd ragereport
-npm ci --ignore-scripts
-npm run build
-npm start -- --help
-npm run demo
+pnpm install --frozen-lockfile
+pnpm format:write
+pnpm check
+pnpm pack:cli
 ```
 
-Open `.demo/ragereport.html` to explore a report made from synthetic histories. To make changes, run `npm run dev` in one terminal and use `npm start -- ...` in another. Regenerate and reload reports after rebuilding.
+Keep changes focused, readable, and consistent with the surrounding code. Reuse existing helpers and components; split code files before they exceed 500 lines. Use exact dependency versions and choose the newest compatible release that is at least two days old.
 
-## Before opening a pull request
+The [CLI contribution guide](packages/ragereport/CONTRIBUTING.md) covers readers, dictionaries, pricing, synthetic fixtures, and privacy. Keep the CLI free of runtime dependencies. Website dependencies belong in `apps/landing`.
 
-```sh
-npm run format:write
-npm run check
-npm pack --dry-run
-```
+For landing-page changes, inspect desktop and phone widths, keyboard navigation, and interactive controls. Keep examples synthetic and the npm release status honest. Never include real histories in website assets.
 
-Explain what changed, why, and how you verified it. Use a short title starting with a change type, such as `fix: handle streamed usage snapshots` or `feat: add phonetic spelling variants`.
-
-- Keep source files under 500 lines and split larger modules into reusable pieces.
-- Put shared settings, thresholds, and word definitions in the common configuration modules.
-- Reuse the date helpers in `src/utils/format.ts`; reports display dates in UTC as `05 Oct 2026`.
-- Use exact dependency versions and commit lockfile changes with any dependency update. Choose the newest compatible release that is at least two days old.
-- Keep the README and example configuration consistent with behavior changes.
-- Add meaningful regression coverage for reader, detector, pricing, and command behavior changes. Verify report changes in a browser at desktop and phone widths.
-- Keep local history access read-only and reports usable without a server. Network requests should remain limited to the public pricing catalog.
-
-## Reader and dictionary changes
-
-Readers live in `src/readers`, normalized public types in `src/types.ts`, and synthetic history builders in `test/fixtures.mjs`. A reader change should include a minimal fixture showing the real storage shape and assertions for the expected messages or usage. Include coverage for malformed records or missing fields when relevant. Unsupported schemas should produce helpful diagnostics.
-
-Word definitions live in `src/config/words.ts`. Hindi entries use English phonetic spellings. Group spelling variants into families, keep mild insults separate from swear totals, and gate ambiguous short forms behind loose matching. Preserve hostname exclusions, code masking, match positions, and non-overlapping counts when changing detection.
-
-Pricing changes should distinguish missing prices from zero-cost usage and keep recorded charges separate from estimates. Cache and reasoning tokens must not be charged twice when a source includes them in a larger token count.
-
-## Reporting bugs
-
-Open an issue at [github.com/antick/ragereport/issues](https://github.com/antick/ragereport/issues). Include:
-
-- Your operating system, Node version, RageReport version, and relevant agent version.
-- The command you ran and what you expected to happen.
-- The error or incorrect result, with local paths and personal details removed.
-- A small synthetic example that reproduces a reader or matching problem, if possible.
-
-Do not submit real conversation logs, API keys, or personal history databases. `doctor` output and CLI JSON diagnostics can contain local paths; edit them before posting. An HTML or SVG export contains aggregates and word variants, so review those too before sharing.
-
-## Releases and license
-
-The [README publishing guide](README.md#publishing-to-npm) describes the maintainer's release process. Pull requests and the checks workflow do not publish packages.
-
-RageReport uses the [MIT license](LICENSE). Contributions are distributed under the same license.
+Explain what changed and how you verified it. Use a Conventional Commit title, such as `fix: handle streamed usage snapshots`. CI checks changes; it does not publish the CLI or deploy the site.
