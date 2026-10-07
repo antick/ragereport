@@ -65,7 +65,7 @@ Open `packages/ragereport/.demo/ragereport.html` in your browser. This command r
 
 ## Run with npx
 
-**Release status: prepared for npm publication; not published yet.** The commands in this section become available after the first public release:
+Run directly from npm:
 
 ```sh
 npx ragereport
@@ -75,7 +75,7 @@ npx ragereport cost --month
 
 There is no global installation to maintain. Use `npx ragereport@latest --help` when you explicitly want the newest published release, or `npx ragereport@0.1.0 --help` to select a particular release.
 
-Before publication, test the command using the local checkout after building:
+To test your local checkout after building:
 
 ```sh
 npx --yes --offline --package=./packages/ragereport ragereport scan
@@ -88,7 +88,7 @@ To test the actual npm archive:
 
 ```sh
 pnpm --filter ragereport exec npm pack --pack-destination ../..
-npx --yes --offline --package=./packages/ragereport/ragereport-0.1.0.tgz ragereport --help
+npx --yes --offline --package=./ragereport-0.1.0.tgz ragereport --help
 ```
 
 The archive name follows the version in `package.json`. During development, prefer `pnpm cli ...` to run your current build directly.

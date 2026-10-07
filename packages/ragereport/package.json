@@ -10,7 +10,7 @@
     "profanity",
     "token-usage"
   ],
-  "homepage": "https://github.com/antick/ragereport#readme",
+  "homepage": "https://ragereport.potion.sh",
   "bugs": {
     "url": "https://github.com/antick/ragereport/issues"
   },
@@ -18,7 +18,8 @@
   "author": "Pankaj",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antick/ragereport.git"
+    "url": "git+https://github.com/antick/ragereport.git",
+    "directory": "packages/ragereport"
   },
   "bin": {
     "ragereport": "dist/cli.js"
