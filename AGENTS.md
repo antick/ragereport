@@ -22,7 +22,7 @@ RageReport is a pnpm/Turborepo workspace: `packages/ragereport` contains the loc
 - Keep missing usage/prices distinct from zero. Preserve the difference between estimated API costs and recorded charges.
 - Keep transcripts, message excerpts, secrets, and full local paths out of shared HTML/SVG reports. Use synthetic history fixtures for tests and examples. CLI JSON and doctor diagnostics may contain local paths; document this clearly.
 - Use exact dependency versions and update the lockfile with dependency changes. Verify the newest compatible release is at least two days old. Report any newer release excluded by that rule in the final summary.
-- The project currently has no HTTP API. If adding or changing an HTTP endpoint, create or update `openapi.json` in the same change.
+- The project currently has no HTTP API. The landing page is a static site. If adding or changing an HTTP endpoint, create or update `openapi.json` in the same change.
 - Preserve the LF line endings defined by `.gitattributes` so formatting stays consistent across operating systems.
 - Keep this `AGENTS.md` current when the user adds project instructions or a change introduces a lasting convention. Preserve these basic rules when reorganizing it.
 
@@ -38,7 +38,7 @@ RageReport is a pnpm/Turborepo workspace: `packages/ragereport` contains the loc
 1. Run root `pnpm check` after code changes; it rebuilds and runs the available tests as well as type, lint, and formatting checks. Add meaningful regression tests for changed behavior.
 2. For terminal reports, inspect colored and plain output at a narrow width. For HTML layout changes, regenerate the synthetic demo and inspect the rendered report. Test watch refresh and shutdown when changing watch behavior.
 3. For package/CLI changes, check root `pnpm pack:cli` and the built command. Keep private histories and generated exports excluded by `.gitignore` and the package file allowlist.
-4. Commit each verified logical change during implementation unless the user asks to leave changes uncommitted. Use a Conventional Commit message (`fix:`, `feat:`, `refactor:`, `docs:`, or another appropriate type), stage only the files belonging to that change, and preserve unrelated work. Never push, publish, or deploy unless explicitly requested.
+4. Commit each verified logical change during implementation unless the user asks to leave changes uncommitted. Use a Conventional Commit message (`fix:`, `feat:`, `refactor:`, `docs:`, or another appropriate type), stage only the files belonging to that change, and preserve unrelated work. Never push, publish, or deploy unless explicitly requested. Use the landing app’s Vercel configuration and deployment guide when deployment is requested.
 5. Summarize what changed, the commits made, and what verification passed. Always suggest a Conventional Commit message after file changes, including when reporting changes already committed.
 
 <!-- BEGIN:turborepo-agent-rules -->

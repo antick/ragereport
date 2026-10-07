@@ -1,3 +1,5 @@
+export const ENVIRONMENT = { node: "24.16+", pnpm: "12.9.1" };
+
 export const SITE = {
   name: "RageReport",
   url: "https://ragereport.potion.sh",

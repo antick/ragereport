@@ -37,3 +37,21 @@ Direct dependencies use exact versions, and pnpm enforces a two-day minimum rele
 | Radix UI                | 1.6.7    | 1.7.0                                                   |
 
 The landing page uses TypeScript 6.0.3 because Astro Check and its ESLint parser currently support TypeScript through version 6. The CLI retains TypeScript 7.0.2. React 19.3.0 and Tailwind CSS 4.3.3 are the latest eligible stable releases. No extra shared package is needed.
+
+## Deploying to Vercel
+
+Create a Vercel project for this repository when ready to deploy. Use:
+
+| Setting                                         | Value          |
+| ----------------------------------------------- | -------------- |
+| Root Directory                                  | `apps/landing` |
+| Framework                                       | Astro          |
+| Node.js                                         | 24.x           |
+| Include source files outside the Root Directory | Enabled        |
+| Output Directory                                | `dist`         |
+
+The app’s `vercel.json` installs pinned pnpm 12.9.1 and runs the landing build from the workspace root. This also builds the CLI needed to generate the synthetic report. These settings follow [Vercel’s Turborepo guidance](https://vercel.com/docs/monorepos/turborepo).
+
+Add `ragereport.potion.sh` under the Vercel project’s Domains settings, then apply the DNS record Vercel supplies. No runtime adapter, environment variables, database, or secret is required for this static site. The canonical URL lives in `src/config/site.ts`; change it there if the production domain changes.
+
+The repository has been prepared locally. No Vercel project, deployment, or DNS record is created by these commands.

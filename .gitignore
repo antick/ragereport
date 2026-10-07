@@ -11,16 +11,20 @@ coverage/
 # Synthetic generated demos and local report exports
 .demo/
 /reports/
+/*/*/reports/
 /exports/
-/ragereport*.html
-/ragereport*.svg
-/ragereport*.md
-/ragereport*.json
-!/ragereport.example.json
+/*/*/exports/
+ragereport*.html
+ragereport*.svg
+ragereport*.md
+ragereport*.json
+!ragereport.example.json
 
 # Private history imports, databases, and local credentials
 /history/
+/*/*/history/
 /histories/
+/*/*/histories/
 *.jsonl
 *.db
 *.sqlite

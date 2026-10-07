@@ -5,7 +5,7 @@ import FeatureList from "@/components/FeatureList.astro";
 import CommandTabs from "@/components/CommandTabs";
 import { CopyButton } from "@/components/CopyButton";
 import { buttonVariants } from "@/components/ui/button";
-import { AGENTS, FAQS, INSTALL_COMMAND, SITE } from "@/config/site";
+import { AGENTS, ENVIRONMENT, FAQS, INSTALL_COMMAND, SITE } from "@/config/site";
 ---
 
 <Page>
@@ -183,7 +183,7 @@ import { AGENTS, FAQS, INSTALL_COMMAND, SITE } from "@/config/site";
         </div>
         <pre><code>{INSTALL_COMMAND}</code></pre>
         <p>
-          Node.js 24.16+ · pnpm 12.9.1
+          Node.js {ENVIRONMENT.node} · pnpm {ENVIRONMENT.pnpm}
           <br />
           <span>Npm release coming soon. Source available now.</span>
         </p>
