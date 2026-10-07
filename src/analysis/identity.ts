@@ -17,5 +17,11 @@ export function recordSignature(record: Message | UsageRecord): string {
   return "role" in record
     ? (record.computed?.signature ??
         createHash("sha256").update(`${record.role}\0${record.text.trim()}`).digest("hex"))
-    : JSON.stringify([record.provider, record.model, ...TOKEN_KEYS.map((key) => record[key])]);
+    : JSON.stringify([
+        record.provider,
+        record.model,
+        record.tokensAvailable,
+        record.billedCost,
+        ...TOKEN_KEYS.map((key) => record[key]),
+      ]);
 }

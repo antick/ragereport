@@ -35,13 +35,14 @@ export function priceUsage(record: UsageRecord, catalog: PriceCatalog): CostRow 
   if (rates)
     for (const tier of rates.tiers ?? [])
       if (context >= tier.above) rates = { ...rates, ...tier.rates };
-  const estimatedCost = rates
-    ? (record.input * rates.input +
-        (record.output + record.reasoning) * rates.output +
-        record.cacheRead * (rates.cacheRead ?? rates.input) +
-        record.cacheWrite * (rates.cacheWrite ?? rates.input)) /
-      PRICING.perTokens
-    : null;
+  const estimatedCost =
+    rates && record.tokensAvailable !== false
+      ? (record.input * rates.input +
+          (record.output + record.reasoning) * rates.output +
+          record.cacheRead * (rates.cacheRead ?? rates.input) +
+          record.cacheWrite * (rates.cacheWrite ?? rates.input)) /
+        PRICING.perTokens
+      : null;
   return {
     agent: record.agent,
     ...identity,

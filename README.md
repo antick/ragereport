@@ -187,7 +187,7 @@ The scan cache stores matched word variants, hashed message text signatures, mes
 
 Readers use read-only access and never modify agent histories. Source formats can change; an unknown or unreadable format is reported rather than guessed. All nine readers have fixture coverage. Actual compatibility with a particular installed agent version still depends on that version's stored schema.
 
-Native message/request identifiers remove repeated history and streamed snapshots. T3 mirrors are matched to native records using known origin/session identity or matching content/token details and nearby timestamps. Ambiguous mirrors without enough identifying information can remain; unrelated user turns are not merged merely because their text is the same.
+Native message/request identifiers remove repeated history and streamed snapshots. T3 mirrors are matched to native records using both a known origin agent and session, with matching content/token details and nearby timestamps. Ambiguous mirrors without enough identifying information can remain; unrelated user turns are not merged merely because their text is the same.
 
 Standard home, XDG, macOS Application Support, and Windows AppData locations are supported. Discovery honors `CODEX_HOME`, `CLAUDE_CONFIG_DIR`, `PI_CODING_AGENT_DIR`, `T3CODE_HOME`, and `T3CODE_STATE_DIR` where applicable. `--home /path/to/home` uses a separate home and ignores environment discovery overrides, which is useful for exported histories and tests.
 
@@ -233,7 +233,7 @@ Only `cost` and `report` need a public price-catalog fetch, and only when local 
 
 Prices come from [Models.dev](https://models.dev), are cached locally for seven days, and can be refreshed with `--refresh-prices`. If a fetch fails, the tool uses an older cache or its dated bundled snapshot. The report labels which source was used. The bundled snapshot covers selected OpenAI, Anthropic, and Google models, including context-size tiers; the online catalog covers additional models.
 
-Unknown model prices remain **unavailable**, and the estimated total includes only priced usage. Missing usage is not zero spending. Known zero-cost records remain zero. Recorded charges are displayed separately and never substituted for an API estimate. Estimates use the selected catalog's rates, not historical rates at the time a request ran, and may differ from subscriptions, discounts, fast-mode rates, and invoices.
+Missing token counters and unknown model prices remain **unavailable**, and the estimated total includes only priced usage. Missing usage is not zero spending. Known zero-cost records remain zero. Recorded charges are displayed separately and never substituted for an API estimate. Estimates use the selected catalog's rates, not historical rates at the time a request ran, and may differ from subscriptions, discounts, fast-mode rates, and invoices.
 
 Generated HTML and SVG contain aggregate counts, word variants, and model names, without transcripts or local history paths. CLI JSON diagnostics and `doctor` can include local file locations and read-error details; review those before sharing. Creating a share card downloads a file and does not publish or upload it.
 

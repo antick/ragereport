@@ -4,7 +4,9 @@ export const TOKEN_KEYS = ["input", "output", "reasoning", "cacheRead", "cacheWr
 export function emptyTokens(): Tokens {
   return { input: 0, output: 0, reasoning: 0, cacheRead: 0, cacheWrite: 0 };
 }
-export function parseTokens(value: unknown, inclusive = false): Tokens {
+type InclusiveTokens = boolean | { input?: boolean; output?: boolean };
+
+export function parseTokens(value: unknown, inclusive: InclusiveTokens = false): Tokens {
   const r = object(value);
   const cache = object(r.cache);
   const creation = object(r.cache_creation);
@@ -34,14 +36,22 @@ export function parseTokens(value: unknown, inclusive = false): Tokens {
         inputDetails.cached_tokens,
     ),
     cacheWrite: number(
-      first(r, ["cache_creation_input_tokens", "cacheWriteTokens", "cacheWrite"]) ??
+      first(r, [
+        "cache_creation_input_tokens",
+        "cacheCreationTokens",
+        "cacheWriteTokens",
+        "cacheWrite",
+      ]) ??
         cache.write ??
         number(creation.ephemeral_1h_input_tokens) + number(creation.ephemeral_5m_input_tokens),
     ),
   };
-  if (inclusive) {
+  if (inclusive === true || (typeof inclusive === "object" && inclusive.input)) {
     tokens.cacheRead = Math.min(tokens.input, tokens.cacheRead);
-    tokens.input -= tokens.cacheRead;
+    tokens.cacheWrite = Math.min(tokens.input - tokens.cacheRead, tokens.cacheWrite);
+    tokens.input -= tokens.cacheRead + tokens.cacheWrite;
+  }
+  if (inclusive === true || (typeof inclusive === "object" && inclusive.output)) {
     tokens.reasoning = Math.min(tokens.output, tokens.reasoning);
     tokens.output -= tokens.reasoning;
   }
@@ -64,22 +74,32 @@ export function usageFrom(
   session: string,
   value: unknown,
   extra: Partial<UsageRecord> = {},
-  inclusive = false,
+  inclusive: InclusiveTokens = false,
 ): UsageRecord | undefined {
   const r = object(value);
   const tokens = parseTokens(r, inclusive);
+  const tokensAvailable = [
+    first(r, ["input_tokens", "inputTokens", "input"]),
+    first(r, ["output_tokens", "outputTokens", "output"]),
+  ].every((value) => typeof value === "number" && Number.isFinite(value) && value >= 0);
   const cost = first(r, ["billedCost", "costUSD", "cost", "totalCost"]);
   const billedCost =
     typeof cost === "number" && Number.isFinite(cost) && cost >= 0 ? cost : undefined;
-  if (!hasTokens(tokens) && billedCost === undefined && extra.billedCost === undefined)
+  if (
+    !tokensAvailable &&
+    !hasTokens(tokens) &&
+    billedCost === undefined &&
+    extra.billedCost === undefined
+  )
     return undefined;
   return {
     agent,
     session,
     ...tokens,
+    tokensAvailable,
     billedCost,
     provider: string(r.provider),
     model: string(r.model),
-    ...extra,
+    ...Object.fromEntries(Object.entries(extra).filter(([, value]) => value !== undefined)),
   };
 }

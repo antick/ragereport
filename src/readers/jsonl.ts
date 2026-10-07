@@ -36,6 +36,7 @@ export async function* readJsonl(
         model = string(payload.model) ?? model;
         continue;
       }
+      project = string(row.cwd) ?? project;
       const date = timestamp(row.timestamp ?? row.createdAt);
       // Subagent logs can replay parent history before their own task starts.
       if (replayBefore && date && date < replayBefore) continue;
@@ -97,17 +98,23 @@ export async function* readJsonl(
         };
       if (role !== "assistant" || !context.usage || !message.usage) continue;
       const responseModel = string(message.responseModel);
-      const usage = usageFrom(agent as AgentName, string(row.sessionId) ?? session, message.usage, {
-        id: string(row.requestId) ?? id ?? `${session}:row:${rowIndex}`,
-        timestamp: messageDate,
-        model: responseModel ?? string(message.model) ?? model,
-        provider:
-          agent === "claude"
-            ? "anthropic"
-            : responseModel?.includes("/")
-              ? undefined
-              : string(message.provider),
-      });
+      const usage = usageFrom(
+        agent as AgentName,
+        string(row.sessionId) ?? session,
+        message.usage,
+        {
+          id: string(row.requestId) ?? id ?? `${session}:row:${rowIndex}`,
+          timestamp: messageDate,
+          model: responseModel ?? string(message.model) ?? model,
+          provider:
+            agent === "claude"
+              ? "anthropic"
+              : responseModel?.includes("/")
+                ? undefined
+                : string(message.provider),
+        },
+        agent === "pi" ? { output: true } : false,
+      );
       if (usage) yield usage;
     }
   }

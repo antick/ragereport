@@ -8,6 +8,9 @@ export function escapeHtml(value: unknown): string {
   );
 }
 export function projectLabel(value: string): string {
+  // Claude's encoded directory names cannot be decoded without exposing a full path.
+  if (!/[\\/]/u.test(value) && /^-(?:Users|home|[A-Za-z]-Users)(?:-|$)/u.test(value))
+    return "Unknown project";
   return value.replaceAll("\\", "/").split("/").filter(Boolean).at(-1) ?? "Unknown project";
 }
 

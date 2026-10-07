@@ -32,8 +32,7 @@ export function jsonlCandidate(
   if (agent === "codex") {
     if (type === "event_msg")
       return (
-        context.usage &&
-        (body === undefined || headerField(head, "type", body)?.value === "token_count")
+        context.usage && (body === undefined || payload === undefined || payload === "token_count")
       );
     if (type === "response_item") {
       if (role && !wanted) return false;

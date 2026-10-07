@@ -55,6 +55,8 @@ export interface Tokens {
   cacheWrite: number;
 }
 export interface UsageRecord extends Tokens {
+  /** False when the history did not supply complete input and output counters. */
+  tokensAvailable?: boolean;
   agent: AgentName;
   session: string;
   id?: string;
