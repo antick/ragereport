@@ -25,6 +25,8 @@ export const FILE_ACCESS = {
   fileMode: 0o600,
   temporaryPrefix: ".ragereport-",
   temporaryName: "output",
+  renameAttempts: 6,
+  renameRetryMs: 50,
 } as const;
 export const PRICING = {
   url: "https://models.dev/api.json",

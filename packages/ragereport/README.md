@@ -239,7 +239,7 @@ Generated HTML and SVG contain aggregate counts, word variants, and model names,
 
 Legacy message IDs cannot redirect part reads outside their history directories, including through directory links. Unsafe IDs or outside links produce a warning while valid inline message content remains available. Terminal text removes injected controls without disabling report colors. Markdown data is escaped so model names and custom word labels remain text rather than HTML or links; JSON preserves the original values.
 
-Report exports and caches are written through fresh private temporary directories and exclusive file creation, then replaced atomically. Failed writes clean up their temporary files, and simultaneous writes do not share a temporary filename. New files use owner-only permissions where the operating system supports Unix modes; Windows access follows its filesystem permissions. Use output and cache folders you control. Interrupted writes may leave a private `.ragereport-*` directory, which Git ignores.
+Report exports and caches are written through fresh private temporary directories and exclusive file creation, then replaced atomically. Failed writes clean up their temporary files, and simultaneous writes do not share a temporary filename. On Windows, a briefly locked destination is retried for up to 750 milliseconds; persistent failures leave the previous file intact. New files use owner-only permissions where the operating system supports Unix modes; Windows access follows its filesystem permissions. Use output and cache folders you control. Interrupted writes may leave a private `.ragereport-*` directory, which Git ignores.
 
 ## Use as a library
 
