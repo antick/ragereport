@@ -29,7 +29,8 @@ test("default command scans both languages and emits clean machine-readable JSON
 test("cost and combined reports include available usage, while unsupported usage is unavailable", async () => {
   const costs = JSON.parse((await run("cost", "--format", "json")).stdout);
   assert.equal(costs.cost.requests, 7);
-  assert.equal(costs.cost.unpricedRequests, 0);
+  assert.equal(costs.cost.unpricedRequests, 1);
+  assert.equal(costs.agents.find((a) => a.agent === "t3code").cost.unpricedRequests, 1);
   assert.equal(costs.agents.find((a) => a.agent === "cline").cost.estimatedCost, null);
   assert.equal(costs.agents.find((a) => a.agent === "pi").cost.unpricedRequests, 0);
   const combined = JSON.parse((await run("report", "--format", "json")).stdout);

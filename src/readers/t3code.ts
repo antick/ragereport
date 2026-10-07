@@ -1,10 +1,10 @@
 import type { DatabaseSync } from "node:sqlite";
-import type { AgentName, Message, ReaderContext, UsageRecord } from "../types.js";
+import type { AgentName, Message, ReaderContext, Tokens, UsageRecord } from "../types.js";
 import { first, json, object, string } from "../utils/value.js";
 import { timestamp } from "../utils/format.js";
 import { walk } from "./files.js";
 import { columns, dbWarning, openDatabase, rows, tables } from "./sqlite.js";
-import { parseTokens, hasTokens } from "./tokens.js";
+import { emptyTokens, hasTokens, parseTokens, tokenDelta, usageFrom } from "./tokens.js";
 
 interface Thread {
   model?: string;
@@ -88,49 +88,7 @@ export async function* readT3Code(
             };
         }
       if (context.usage && available.includes("orchestration_events"))
-        for (const row of rows(
-          db,
-          "orchestration_events",
-          columns(db, "orchestration_events").includes("sequence") ? "sequence" : "occurred_at",
-        )) {
-          if (row.event_type !== "thread.activity-appended") continue;
-          const payload = object(json(row.payload_json));
-          const activity = object(payload.activity);
-          if (activity.kind !== "context-window.updated") continue;
-          const details = object(activity.payload);
-          const session = string(payload.threadId) ?? string(row.stream_id) ?? file;
-          const info = threads.get(session);
-          const hasLast = Object.keys(details).some((key) => key.startsWith("last"));
-          const source = hasLast
-            ? {
-                inputTokens: details.lastInputTokens ?? details.last_input_tokens,
-                cachedInputTokens:
-                  details.lastCachedInputTokens ?? details.last_cached_input_tokens,
-                outputTokens: details.lastOutputTokens ?? details.last_output_tokens,
-                reasoningOutputTokens:
-                  details.lastReasoningOutputTokens ?? details.last_reasoning_output_tokens,
-              }
-            : details;
-          const tokens = parseTokens(source, true);
-          if (!hasTokens(tokens)) continue;
-          yield {
-            agent: "t3code",
-            session,
-            ...tokens,
-            id: string(activity.turnId) ?? string(row.event_id),
-            timestamp: timestamp(activity.createdAt ?? row.occurred_at),
-            model: string(details.model) ?? info?.model,
-            provider:
-              string(details.provider) ??
-              (info?.originAgent === "codex"
-                ? "openai"
-                : info?.originAgent === "claude"
-                  ? "anthropic"
-                  : undefined),
-            originAgent: info?.originAgent,
-            originSession: info?.originSession,
-          };
-        }
+        yield* readT3Usage(db, file, threads);
       context.diagnostics.push({
         agent: "t3code",
         path: file,
@@ -142,5 +100,91 @@ export async function* readT3Code(
     } finally {
       db?.close();
     }
+  }
+}
+
+function* readT3Usage(
+  db: DatabaseSync,
+  file: string,
+  threads: Map<string, Thread>,
+): Generator<UsageRecord> {
+  const selections = new Map<string, { model?: string; provider?: string }>();
+  const turnModels = new Map<string, { model?: string; provider?: string }>();
+  const totals = new Map<string, Tokens>();
+  const snapshots = new Set<string>();
+  for (const row of rows(
+    db,
+    "orchestration_events",
+    columns(db, "orchestration_events").includes("sequence") ? "sequence" : "occurred_at",
+  )) {
+    const payload = object(json(row.payload_json));
+    const session = string(payload.threadId) ?? string(row.stream_id) ?? file;
+    const selected = object(payload.modelSelection);
+    // Reconstruct selections in event order; the current projection is not historical evidence.
+    if (string(selected.model))
+      selections.set(session, {
+        model: string(selected.model),
+        provider: string(selected.provider) ?? string(selected.instanceId),
+      });
+    if (row.event_type !== "thread.activity-appended") continue;
+    const activity = object(payload.activity);
+    if (activity.kind !== "context-window.updated") continue;
+    const details = object(activity.payload);
+    const turn = JSON.stringify([session, string(activity.turnId) ?? row.event_id]);
+    const selection = turnModels.get(turn) ?? selections.get(session) ?? {};
+    turnModels.set(turn, selection);
+    const model = string(details.model) ?? selection.model;
+    const provider = string(details.provider) ?? selection.provider;
+    const info = threads.get(session);
+    const originAgent = origin(provider, model) ?? info?.originAgent;
+    const hasLast =
+      details.lastInputTokens !== undefined || details.last_input_tokens !== undefined;
+    const source = hasLast
+      ? {
+          inputTokens: details.lastInputTokens ?? details.last_input_tokens,
+          cachedInputTokens: details.lastCachedInputTokens ?? details.last_cached_input_tokens,
+          outputTokens: details.lastOutputTokens ?? details.last_output_tokens,
+          reasoningOutputTokens:
+            details.lastReasoningOutputTokens ?? details.last_reasoning_output_tokens,
+        }
+      : details;
+    const cumulative =
+      originAgent === "codex" &&
+      typeof details.inputTokens === "number" &&
+      typeof details.outputTokens === "number";
+    const usage = usageFrom(
+      "t3code",
+      session,
+      source,
+      {
+        id: string(details.requestId) ?? string(activity.id) ?? string(row.event_id),
+        timestamp: timestamp(activity.createdAt ?? row.occurred_at),
+        model,
+        provider: provider?.startsWith("codex")
+          ? "openai"
+          : provider?.startsWith("claude")
+            ? "anthropic"
+            : provider,
+        originAgent,
+        originSession: info?.originSession,
+      },
+      true,
+    );
+    if (!usage) continue;
+    if (cumulative) {
+      const key = JSON.stringify([session, info?.originSession]);
+      const total = parseTokens(details, true);
+      const delta = tokenDelta(total, totals.get(key) ?? emptyTokens());
+      totals.set(key, total);
+      if (!hasTokens(delta)) continue;
+      Object.assign(usage, delta);
+    } else if (details.totalProcessedTokens !== undefined) {
+      const signature = JSON.stringify([turn, details.totalProcessedTokens, source]);
+      if (snapshots.has(signature)) continue;
+      snapshots.add(signature);
+    }
+    // Non-Codex context size is not a complete billing ledger.
+    if (!hasLast && !cumulative) usage.tokensAvailable = false;
+    yield usage;
   }
 }
