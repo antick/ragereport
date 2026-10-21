@@ -22,6 +22,9 @@ concurrency:
 jobs:
   deploy:
     if: ${{ github.event_name == 'workflow_dispatch' || (!github.event.release.draft && !github.event.release.prerelease) }}
+    environment: Production
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -35,16 +38,17 @@ jobs:
           test -n "$tag" || { echo "No stable release found." >&2; exit 1; }
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
       - name: Check out release tag
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: refs/tags/${{ steps.rel.outputs.tag }}
           fetch-depth: 0
           persist-credentials: false
       - name: Verify the tag is on main
         run: git merge-base --is-ancestor HEAD origin/main
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
+          package-manager-cache: false
       - name: Deploy to production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
