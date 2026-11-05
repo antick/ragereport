@@ -1,0 +1,54 @@
+# Toolchain and task runner for RageReport. `mise install` once, then `mise run <task>`.
+# Tasks delegate to root package.json scripts so both entry points stay identical.
+
+[tools]
+node = "24.21.0"
+pnpm = "12.9.1"
+
+[tasks.install]
+description = "Install workspace dependencies from the lockfile"
+run = "pnpm install --frozen-lockfile"
+
+[tasks.dev]
+description = "Astro landing page dev server"
+run = "pnpm run dev"
+
+[tasks."dev:cli"]
+description = "Rebuild the CLI when its source changes"
+run = "pnpm run dev:cli"
+
+[tasks.build]
+description = "Build all workspace packages"
+run = "pnpm run build"
+
+[tasks."build:cli"]
+description = "Build the ragereport CLI package"
+run = "pnpm run build:cli"
+
+[tasks."build:landing"]
+description = "Build the landing site and its CLI dependency"
+run = "pnpm run build:landing"
+
+[tasks.test]
+description = "Run tests in all packages"
+run = "pnpm run test"
+
+[tasks.lint]
+description = "Lint all packages"
+run = "pnpm run lint"
+
+[tasks.format]
+description = "Check formatting (oxfmt and Prettier)"
+run = "pnpm run format"
+
+[tasks.typecheck]
+description = "Typecheck all packages"
+run = "pnpm run typecheck"
+
+[tasks.check]
+description = "Format check, typecheck, lint, and test"
+run = "pnpm run check"
+
+[tasks.preview]
+description = "Serve the production landing build locally"
+run = "pnpm run preview"
