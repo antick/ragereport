@@ -11,6 +11,25 @@ This pnpm/Turborepo workspace keeps the CLI and its website together:
 
 Use Node **24.21.0** (`.nvmrc`) and pnpm **12.9.1**. Install pnpm with `npm install --global pnpm@12.9.1` if needed.
 
+### mise
+
+With [mise](https://mise.jdx.dev/) installed, run `mise install` once, then use the tasks below instead of remembering pnpm script names.
+
+| Task          | Command                  |
+| ------------- | ------------------------ |
+| install       | `mise run install`       |
+| dev           | `mise run dev`           |
+| dev:cli       | `mise run dev:cli`       |
+| build         | `mise run build`         |
+| build:cli     | `mise run build:cli`     |
+| build:landing | `mise run build:landing` |
+| test          | `mise run test`          |
+| lint          | `mise run lint`          |
+| format        | `mise run format`        |
+| typecheck     | `mise run typecheck`     |
+| check         | `mise run check`         |
+| preview       | `mise run preview`       |
+
 ```sh
 pnpm install --frozen-lockfile
 pnpm build:cli
