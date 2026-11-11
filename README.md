@@ -2,6 +2,31 @@
 
 Your keyboard has stories. RageReport reads local coding-agent histories and reports your swears, polite expressions, token costs, and common assistant writing patterns. It runs on your computer without an account, API key, or transcript upload.
 
+## Quick start
+
+Install [Node.js](https://nodejs.org/) **24.14 or newer**, then run:
+
+```sh
+npx ragereport
+```
+
+This scans supported coding-agent histories in your home folder and prints a terminal report. You do not need to clone this repository, install pnpm, or install RageReport globally.
+
+```sh
+npx ragereport scan --agent codex --week  # Scan one agent's last seven days
+npx ragereport report --offline         # Generate a combined HTML report
+npx ragereport cost --month --offline   # Show token costs for the last thirty days
+npx ragereport slop --week              # Find common assistant writing patterns
+npx ragereport doctor                   # Check history locations and read errors
+npx ragereport --help                   # List every command and option
+```
+
+`report` saves `ragereport.html` in the folder where you run the command. Double-click it to open it in your browser; no web server is needed. `cost` also saves `ragereport-cost.html` by default. `--offline` uses cached or bundled model prices; leave it out to allow a public price-catalog refresh. npm may still need internet access to download the CLI.
+
+Read the [CLI documentation](packages/ragereport/README.md) for all commands, supported agents, filters, privacy, pricing, and configuration.
+
+## Develop from source
+
 This pnpm/Turborepo workspace keeps the CLI and its website together:
 
 | Folder                                                 | Purpose                                                     |
@@ -48,8 +73,6 @@ pnpm dev:cli        # Rebuild the CLI when its source changes
 pnpm demo           # Synthetic report in packages/ragereport/.demo
 pnpm pack:cli       # Inspect the publishable package without publishing
 ```
-
-Run the published CLI with `npx ragereport`. Read the [CLI documentation](packages/ragereport/README.md) for commands, readers, privacy, pricing, configuration, and publishing.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) before changing the workspace.
 
