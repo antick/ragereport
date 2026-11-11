@@ -4,29 +4,26 @@ Your keyboard has stories. RageReport reads local coding-agent histories and rep
 
 It works entirely on your computer. No account, API key, or transcript upload is needed. Hindi is matched through English phonetic spellings such as `chutiya`, `bhosdike`, and `shukriya`.
 
-## Run locally
+## Run with npx
 
-Requires Node.js **24.14 or newer** to run the published CLI. Workspace development requires **24.16 or newer** and pnpm **12.9.1**. Development uses Node **24.21.0 LTS**.
-
-Clone the repository, install the development tools, and build the CLI:
+Requires [Node.js](https://nodejs.org/) **24.14 or newer**. Run directly from npm without cloning this repository, installing pnpm, or installing RageReport globally:
 
 ```sh
-git clone https://github.com/antick/ragereport.git
-cd ragereport
-pnpm install --frozen-lockfile
-pnpm build
+npx ragereport
 ```
 
-If you already have the repository, start in its `ragereport` folder and skip the clone step. If you use nvm, run `nvm install` and `nvm use` in that folder before installing dependencies; `.nvmrc` selects the development version.
-
-Run a terminal scan or generate the browser report:
+The default command is `scan`: it reads supported coding-agent histories in your home folder and prints a terminal report. Running it inside a project does not limit the scan to that project. Use `--agent` or date filters to narrow it.
 
 ```sh
-pnpm cli scan
-pnpm cli report --offline
+npx ragereport scan --agent codex --week
+npx ragereport report --offline
+npx ragereport cost --month --offline
+npx ragereport slop --week
+npx ragereport doctor
+npx ragereport --help
 ```
 
-`report` writes `ragereport.html` in the current folder. Open it in your browser. The file includes everything it needs, so there is no web server to start. `--offline` uses cached or bundled model prices. Leave it out to allow a public price-catalog refresh.
+`report` saves a standalone `ragereport.html` in the folder where you run the command. Double-click the file to open it in your browser; no web server is needed. `cost` prints a terminal summary and also saves `ragereport-cost.html` by default. `--offline` uses cached or bundled model prices without price-catalog requests; npm may still need internet access to download the CLI. Leave `--offline` out to allow a public price-catalog refresh.
 
 | System             | Open the generated report         |
 | ------------------ | --------------------------------- |
@@ -34,64 +31,7 @@ pnpm cli report --offline
 | Linux desktop      | `xdg-open ragereport.html`        |
 | Windows PowerShell | `Start-Process .\ragereport.html` |
 
-You can also double-click the file or run the built CLI directly:
-
-```sh
-node packages/ragereport/dist/cli.js scan
-node packages/ragereport/dist/cli.js report --offline
-```
-
-For other commands, use the same `pnpm cli` prefix:
-
-```sh
-pnpm cli scan --agent codex --week
-pnpm cli cost --month --offline
-pnpm cli slop --week
-pnpm cli doctor
-pnpm cli --help
-```
-
-Terminal reports use colored headings, count cards, vocabulary bars, and agent summaries. **Colors are on by default:** just run `pnpm cli scan`. Use `--no-color` for plain text. Word variants and their counts wrap onto additional lines without ellipses or a hidden variant limit for each displayed family. The CLI does not rely on terminal detection or color environment variables, which can suppress colors in embedded terminals. `--color` remains accepted for compatibility but is unnecessary. File exports and non-terminal formats contain no terminal color codes. For plain text in a pipe, pass `--no-color` or choose `--format markdown`.
-
-`cost` prints a terminal summary and also writes `ragereport-cost.html` unless an explicit output format was selected. The default scan reads all supported histories in your home folder, even when you run the command inside a particular project. Use `--agent`, date filters, or configured history paths to narrow it.
-
-For a demo using only synthetic histories:
-
-```sh
-pnpm demo
-```
-
-Open `packages/ragereport/.demo/ragereport.html` in your browser. This command requires the build above and also creates `packages/ragereport/.demo/ragereport-card.svg`.
-
-## Run with npx
-
-Run directly from npm:
-
-```sh
-npx ragereport
-npx ragereport report --week
-npx ragereport cost --month
-```
-
 There is no global installation to maintain. Use `npx ragereport@latest --help` when you explicitly want the newest published release, or `npx ragereport@0.1.0 --help` to select a particular release.
-
-To test your local checkout after building:
-
-```sh
-npx --yes --offline --package=./packages/ragereport ragereport scan
-npx --yes --offline --package=./packages/ragereport ragereport report --offline
-```
-
-The first `--offline` belongs to npm and disables registry requests. The last one belongs to RageReport and disables price-catalog requests. Initial `pnpm install` still needs access to the development dependencies unless they are already cached.
-
-To test the actual npm archive:
-
-```sh
-pnpm --filter ragereport exec npm pack --pack-destination ../..
-npx --yes --offline --package=./ragereport-0.1.0.tgz ragereport --help
-```
-
-The archive name follows the version in `package.json`. During development, prefer `pnpm cli ...` to run your current build directly.
 
 ## What you get
 
@@ -112,9 +52,9 @@ The archive name follows the version in `package.json`. During development, pref
 
 ## Commands and filters
 
-These examples use the command after npm publication. In a local checkout, replace `npx ragereport` with `pnpm cli`.
+These examples use the published CLI. To run a built local checkout, replace `npx ragereport` with `pnpm cli`; see [Run from source](#run-from-source).
 
-For scripts that parse JSON, use `node packages/ragereport/dist/cli.js scan --format json` directly. This keeps npm's script banner out of the output.
+For scripts that parse JSON from a local checkout, use `node packages/ragereport/dist/cli.js scan --format json` directly. This keeps pnpm's script banner out of the output.
 
 ```sh
 npx ragereport scan --agent codex --week
@@ -138,11 +78,13 @@ HTML period filters select exactly seven or thirty UTC calendar dates, ending on
 
 ## Terminal calendar, projects, and sharing
 
+Terminal reports use colored headings, count cards, vocabulary bars, and agent summaries. **Colors are on by default:** just run `npx ragereport scan`. Use `--no-color` for plain text. Word variants and their counts wrap onto additional lines without ellipses or a hidden variant limit for each displayed family. The CLI does not rely on terminal detection or color environment variables, which can suppress colors in embedded terminals. `--color` remains accepted for compatibility but is unnecessary. File exports and non-terminal formats contain no terminal color codes. For plain text in a pipe, pass `--no-color` or choose `--format markdown`.
+
 ```sh
-pnpm cli scan
-pnpm cli scan --watch
-pnpm cli scan --no-color
-pnpm cli report --offline --format svg --output reports/ragereport-card.svg
+npx ragereport scan
+npx ragereport scan --watch
+npx ragereport scan --no-color
+npx ragereport report --offline --format svg --output reports/ragereport-card.svg
 ```
 
 The terminal language scan includes a calendar of up to 91 days, ending on the report date or the selected end date. Week columns run Sunday to Saturday. A CLI start filter narrows the calendar; an exclusive midnight `--until` ends it on the preceding day. Dates are displayed in UTC. Green shades and `░ ▒ ▓ █` show increasing swear counts relative to the busiest day in that calendar. `·` means no recorded user messages; `□` means recorded user messages with zero swears. Undated messages remain in eligible report totals but cannot appear on the calendar.
@@ -160,9 +102,9 @@ The default scan reads all supported history in your home folder, not just the c
 Language scans skip decoding known tool-output and assistant-only JSONL records. The first scan still needs to read the file bytes. Subsequent all-history `scan` commands reuse a local cache; changing one file does not require rereading every other file. Cache entries are checked against file size, modification time, change time, permissions, and SQLite journal/WAL files. Dictionary, configuration, or build changes invalidate the relevant cache. Weekly comparison counts also expire when a message crosses a date boundary.
 
 ```sh
-pnpm cli scan
-pnpm cli scan --no-cache
-pnpm cli scan --no-progress
+npx ragereport scan
+npx ragereport scan --no-cache
+npx ragereport scan --no-progress
 ```
 
 `--no-cache` reads histories afresh without deleting existing cache files. Active coding apps can change their histories during a scan; those files are read again on the next run. Cache failures fall back to normal reading. Date-filtered scans, `cost`, `slop`, and `report` currently read their inputs afresh. Library callers can opt in with `cache: true`; caching is off by default for the library.
@@ -259,6 +201,57 @@ const html = renderHtml(report);
 
 `buildReport` accepts already-normalized messages/usage and a pricing catalog, useful for imports and controlled tests. `createReader`, `readerContext`, and `readHistories` expose the source readers. Public types and declarations are included in the npm package.
 
+## Run from source
+
+Workspace development requires Node.js **24.16 or newer** and pnpm **12.9.1**. Use the pinned development version, Node **24.21.0 LTS** (`.nvmrc`).
+
+Clone the repository, install the development tools, and build the CLI:
+
+```sh
+git clone https://github.com/antick/ragereport.git
+cd ragereport
+pnpm install --frozen-lockfile
+pnpm build:cli
+```
+
+If you already have the repository, start in its `ragereport` folder and skip the clone step. If you use nvm, run `nvm install` and `nvm use` in that folder before installing dependencies; `.nvmrc` selects the development version.
+
+Run the built CLI directly, or use `pnpm cli` in place of `npx ragereport` in the examples above:
+
+```sh
+pnpm cli scan
+pnpm cli report --offline
+node packages/ragereport/dist/cli.js --help
+```
+
+The root `pnpm cli report --offline` command runs inside the CLI package, so its default output is `packages/ragereport/ragereport.html`.
+
+For a demo using only synthetic histories:
+
+```sh
+pnpm demo
+```
+
+Open `packages/ragereport/.demo/ragereport.html` in your browser. This command requires the build above and also creates `packages/ragereport/.demo/ragereport-card.svg`.
+
+To test your local checkout after building:
+
+```sh
+npx --yes --offline --package=./packages/ragereport ragereport scan
+npx --yes --offline --package=./packages/ragereport ragereport report --offline
+```
+
+The first `--offline` belongs to npm and disables registry requests. The last one belongs to RageReport and disables price-catalog requests. Initial `pnpm install` still needs access to the development dependencies unless they are already cached.
+
+To test the actual npm archive:
+
+```sh
+pnpm --filter ragereport exec npm pack --pack-destination ../..
+npx --yes --offline --package=./ragereport-0.1.0.tgz ragereport --help
+```
+
+The archive name follows the version in `package.json`. During development, prefer `pnpm cli ...` to run your current build directly.
+
 ## Development and verification
 
 ```sh
@@ -286,8 +279,8 @@ Repository instructions for coding agents live in [AGENTS.md](https://github.com
 | Installation reports an unsupported Node version | Run `node --version` and switch to Node 24.14 or newer. With nvm, use the repository's `.nvmrc`.                                                                                                     |
 | `dist/cli.js` is missing                         | Run `pnpm build` after installing dependencies.                                                                                                                                                      |
 | The first full scan is slow                      | Check the progress display: large histories still need an initial read. Repeat all-history scans reuse cached files. Use `--agent` to limit the scan, or Ctrl+C to stop.                             |
-| Terminal colors are missing                      | Run `pnpm build`, then `pnpm cli scan`. Colors are enabled by default; check that `--no-color` is not being passed. File exports intentionally use plain text.                                       |
-| No messages are found                            | Run `pnpm cli doctor`. Check the selected agent, date range, and configured paths. A new agent installation may not have history yet.                                                                |
+| Terminal colors are missing                      | Run `npx ragereport scan`. Colors are enabled by default; check that `--no-color` is not being passed. File exports intentionally use plain text.                                                    |
+| No messages are found                            | Run `npx ragereport doctor`. Check the selected agent, date range, and configured paths. A new agent installation may not have history yet.                                                          |
 | History warnings appear                          | `doctor` lists the affected files and read errors. Share a minimal synthetic example when reporting a schema change.                                                                                 |
 | A cost is unavailable                            | The history may have no token usage or model identifier, or the catalog may have no price for that model. Try `cost --refresh-prices` when online. Unavailable usage is never treated as free usage. |
 | A price fetch fails                              | Use `report --offline` or `cost --offline`; cached or bundled prices are used and labeled. Models outside the snapshot may remain unpriced.                                                          |
