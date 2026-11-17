@@ -7,3 +7,9 @@ engineStrict: true
 minimumReleaseAge: 2880
 allowBuilds:
   esbuild: true
+
+# These parents use only the supported minimatch() API. Remove when their
+# releases require minimatch 11; version 10 is affected by GHSA-g3hv-75wg-m249.
+overrides:
+  "@typescript-eslint/typescript-estree@8.71.0>minimatch": 11.0.8
+  "eslint-plugin-jsx-a11y-x@0.2.0>minimatch": 11.0.8
